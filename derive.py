@@ -11,10 +11,11 @@ FLD_PFX = '$'
 LPAR, RPAR, EQ = map(pp.Suppress, '()=')
 identifier = pp.pyparsing_common.identifier
 numeric = pp.pyparsing_common.number
+constants = pp.Literal('True') | pp.Literal('False') | pp.Literal('None')
 quoted_string = pp.quotedString.addParseAction(pp.removeQuotes)
 field = pp.Word(FLD_PFX, pp.alphanums + '_').setName('field')
 function = pp.Forward()
-atom = field | numeric | quoted_string | function
+atom = field | numeric | quoted_string | constants | function
 function << identifier + pp.Group(LPAR + pp.Optional(pp.delimitedList(atom)) + RPAR)
 assignment = identifier + EQ + pp.Group(function)
 grammar = pp.delimitedList(assignment, delim=';')
