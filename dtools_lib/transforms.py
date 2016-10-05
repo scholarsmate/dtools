@@ -1,8 +1,13 @@
 import hashlib
 import random
+import re
 import string
 import uuid
 from collections import defaultdict
+
+from dtools_lib import delimited_record
+
+OBJECT_CACHE_ = {}
 
 RECORD = None
 RECORD_COUNT = 0
@@ -141,51 +146,116 @@ def Shuffle(s):
     return s
 
 
-RANDOM_CHOICE_CACHE = {}
+def Pattern(s):
+    pattern = ''
+    alpha = 0
+    digit = 0
+    punct = 0
+    space = 0
+    for c in s:
+        if c.isalpha():
+            if alpha == 0:
+                if digit > 0:
+                    pattern += 'D' if digit == 1 else 'D+'
+                    digit = 0
+                elif punct > 0:
+                    pattern += 'P' if punct == 1 else 'P+'
+                    punct = 0
+                elif space > 0:
+                    pattern += ' '
+                    space = 0
+            alpha += 1
+        elif c.isdigit():
+            if digit == 0:
+                if alpha > 0:
+                    pattern += 'L' if alpha == 1 else 'L+'
+                    alpha = 0
+                elif punct > 0:
+                    pattern += 'P' if punct == 1 else 'P+'
+                    punct = 0
+                elif space > 0:
+                    pattern += ' '
+                    space = 0
+            digit += 1
+        elif c.isspace():
+            if space == 0:
+                if alpha > 0:
+                    pattern += 'L' if alpha == 1 else 'L+'
+                    alpha = 0
+                elif punct > 0:
+                    pattern += 'P' if punct == 1 else 'P+'
+                    punct = 0
+                elif digit > 0:
+                    pattern += 'D' if digit == 1 else 'D+'
+                    digit = 0
+            space += 1
+        else:
+            if punct == 0:
+                if alpha > 0:
+                    pattern += 'L' if alpha == 1 else 'L+'
+                    alpha = 0
+                elif digit > 0:
+                    pattern += 'D' if digit == 1 else 'D+'
+                    digit = 0
+                elif space > 0:
+                    pattern += ' '
+                    space = 0
+            punct += 1
+    if alpha > 0:
+        pattern += 'L' if alpha == 1 else 'L+'
+    elif digit > 0:
+        pattern += 'D' if digit == 1 else 'D+'
+    elif punct > 0:
+        pattern += 'P' if punct == 1 else 'P+'
+    elif space > 0:
+        pattern += ' '
+    return pattern
 
 
-def RandomChoice(filename, skip_first_line=False):
-    if filename not in RANDOM_CHOICE_CACHE:
+def CreateMap(filename, key, value, sep='|'):
+    object_key = '__MAP__:' + '\t'.join([filename, key, value])
+    if object_key not in OBJECT_CACHE_:
+        m = {}
         with open(filename) as fin:
-            if skip_first_line:
-                fin.readline()
-            RANDOM_CHOICE_CACHE[filename] = [line.rstrip() for line in fin]
-    return random.choice(RANDOM_CHOICE_CACHE[filename])
+            for rec in delimited_record.delimited_record_reader(fin, sep):
+                m[rec[key]] = rec[value]
+        OBJECT_CACHE_[object_key] = m
+    return object_key
 
 
-LOOKUP_CACHE = {}
-
-
-def Lookup(s, filename, skip_first_line=False, sep='|', default=None):
-    if default is None:
-        default = s
-    if filename not in LOOKUP_CACHE:
+def CreateList(filename, key=None, sep='|'):
+    object_key = '__LIST__:' + filename if key is None else '\t'.join([filename, key])
+    if object_key not in OBJECT_CACHE_:
         with open(filename) as fin:
-            if skip_first_line:
-                fin.readline()
-            m = {}
-            for line in fin:
-                (key, value) = line.rstrip().split(sep, 2)
-                m[key] = value
-        LOOKUP_CACHE[filename] = m
-    lookup_map = LOOKUP_CACHE[filename]
-    return lookup_map[s] if s in lookup_map else default
+            OBJECT_CACHE_[object_key] = [line.rstrip() for line in fin] if key is None else \
+                [rec[key] for rec in delimited_record.delimited_record_reader(fin, sep)]
+    return object_key
 
 
-RANDOM_CHOICE_LOOKUP_CACHE = {}
-
-
-def RandomChoiceLookup(s, filename, skip_first_line=False, sep='|', default=None):
-    if default is None:
-        default = s
-    if filename not in RANDOM_CHOICE_LOOKUP_CACHE:
+def CreateMultiMap(filename, key, value, sep='|'):
+    object_key = '__MULTIMAP__:' + '\t'.join([filename, key, value])
+    if object_key not in OBJECT_CACHE_:
         with open(filename) as fin:
-            if skip_first_line:
-                fin.readline()
             m = defaultdict(list)
-            for line in fin:
-                (key, value) = line.rstrip().split(sep, 2)
-                m[key].append(value)
-            RANDOM_CHOICE_LOOKUP_CACHE[filename] = m
-    lookup_map = RANDOM_CHOICE_LOOKUP_CACHE[filename]
-    return random.choice(lookup_map[s]) if s in lookup_map else default
+            for rec in delimited_record.delimited_record_reader(fin, sep):
+                m[rec[key]].append(rec[value])
+                OBJECT_CACHE_[object_key] = m
+    return object_key
+
+
+def RandomChoice(list_key):
+    return random.choice(OBJECT_CACHE_[list_key])
+
+
+def Lookup(s, map_key, default=None):
+    if default is None:
+        default = s
+    return OBJECT_CACHE_[map_key][s] if s in OBJECT_CACHE_[map_key] else default
+
+
+def RandomChoiceLookup(s, multi_map_key, default=None):
+    return random.choice(OBJECT_CACHE_[multi_map_key][s]) if s in OBJECT_CACHE_[multi_map_key] else default
+
+
+def SubstWords(s, map_key):
+    return ' '.join([Lookup(w, map_key) for w in s.split()])

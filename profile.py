@@ -1,8 +1,15 @@
-import sys
 import operator
+import sys
+from dtools_lib import transforms
 
 
 class ColumnarTable(object):
+    class Profile(object):
+        value_histogram = None
+        pattern_histogram = None
+        minimum_length = sys.maxint
+        maximum_length = 0
+
     def __init__(self, header):
         self.header_ = header
         self.ctable_ = {}
@@ -20,12 +27,23 @@ class ColumnarTable(object):
         return self.header_
 
     def profile_column(self, column):
-        prof = {}
+        prof = self.Profile()
+        value_histogram = {}
+        pattern_histogram = {}
         for val in self.ctable_[column]:
-            if val in prof:
-                prof[val] += 1
+            prof.minimum_length = min(len(val), prof.minimum_length)
+            prof.maximum_length = max(len(val), prof.maximum_length)
+            if val in value_histogram:
+                value_histogram[val] += 1
             else:
-                prof[val] = 1
+                value_histogram[val] = 1
+            pattern = transforms.Pattern(val)
+            if pattern in pattern_histogram:
+                pattern_histogram[pattern] = (pattern_histogram[pattern][0] + 1, pattern_histogram[pattern][1])
+            else:
+                pattern_histogram[pattern] = (1, val)
+        prof.value_histogram = value_histogram
+        prof.pattern_histogram = pattern_histogram
         return prof
 
 
@@ -40,21 +58,34 @@ def populate_columnar_table(fileobj, sep='|', header=None):
 
 def profile(table, limit=100):
     for col in table.get_header():
-        p = table.profile_column(col)
-        dv = len(p)
+        profile = table.profile_column(col)
+        distinct_values = len(profile.value_histogram)
+        distinct_patterns = len(profile.pattern_histogram)
         print '*' * 79
-        print "column name: %s\ndistinct values: %d" % (col, dv)
+        print "column name: %s\nminimum length: %d, maximum length: %d\ndistinct values: %d, distinct patterns: %d" % \
+              (col, profile.minimum_length, profile.maximum_length, distinct_values, distinct_patterns)
         print '=' * 79
         l = 0
+        p = profile.value_histogram
         for i in sorted(p.items(), key=operator.itemgetter(1), reverse=True):
             sys.stdout.write('\'' + i[0] + '\': ' + str(i[1]) + ', ')
-#            sys.stdout.write('\'' + i[0] + '\', ')
+            #            sys.stdout.write('\'' + i[0] + '\', ')
             l += 1
             if l == limit:
                 sys.stdout.write('...')
                 break
         print
-
+        print '=' * 79
+        l = 0
+        p = profile.pattern_histogram
+        for i in sorted(p.items(), key=operator.itemgetter(1), reverse=True):
+            sys.stdout.write('\'' + i[0] + '\': ' + str(i[1][0]) + ' [' + i[1][1] + '], ')
+            #            sys.stdout.write('\'' + i[0] + '\', ')
+            l += 1
+            if l == limit:
+                sys.stdout.write('...')
+                break
+        print
 
 table = None
 sep = '|'
