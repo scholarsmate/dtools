@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+import inspect
+import os
+import sys
+
+import dt_settings
+
+dtlib_path = os.path.realpath(
+    os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), dt_settings.DTOOLS_LIB_RELATIVE_PATH))
+if dtlib_path not in sys.path:
+    sys.path.insert(0, dtlib_path)
+
+from dtools_lib import delimited_record
+
+
+# TODO: Setup a few different record emitters, like pretty and JSON, etc.
+def pretty_print(fileobj, header=None, sep='|'):
+    if header is None:
+        header = fileobj.readline().rstrip().split(sep)
+    num_fields = len(header)
+    rec_count = 0
+    for rec in delimited_record.read_delimited(fileobj, sep):
+        rec_count += 1
+        print '\nRECORD {0}:'.format(rec_count)
+        for i in range(0, num_fields):
+            print '\t{0}. {1}: {2}'.format(i + 1, header[i], rec[i])
+
+
+sep = dt_settings.DEFAULT_DELIMITER
+pretty_print(sys.stdin, sep=sep)

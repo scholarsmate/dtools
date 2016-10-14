@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+
+import ConfigParser
+import inspect
+import os
+import random
+import sys
+from string import Template
+
+import dt_settings
+
+dtlib_path = os.path.realpath(
+    os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), dt_settings.DTOOLS_LIB_RELATIVE_PATH))
+if dtlib_path not in sys.path:
+    sys.path.insert(0, dtlib_path)
+
+from faker import Factory
+
+from dtools_lib import data_generators
+
+config = ConfigParser.ConfigParser()
+config.read(sys.argv[1])
+
+num_records = 100
+try:
+    num_records = int(sys.argv[2])
+except IndexError:
+    if config.has_option('Generator', 'records'):
+        num_records = config.getint('Generator', 'records')
+
+record_template = Template(config.get('Record', 'template'))
+generator = Factory.create(config.get('Generator', 'locale', None))
+
+if config.has_option('Generator', 'seed'):
+    # Seed PRNGs
+    seed = config.getint('Generator', 'seed')
+    random.seed(seed)
+    generator.seed(seed)
+
+with open(config.get('Generator', 'postal_codes', 'us_postal_codes.csv')) as f:
+    residential_address_provider = data_generators.AddressProvider(generator, f, prefix='residential_')
+
+with open(config.get('Generator', 'airport_codes', 'airport_codes.csv')) as f:
+    itinerary_provider = data_generators.ItineraryProvider(generator, f)
+
+with open(config.get('Generator', 'cities', 'cities_of_the_world.csv')) as f:
+    city_provider = data_generators.CsvProvider(generator, f, prefix='birth_')
+
+gender_provider = data_generators.GenderProvider()
+biometric_provider = data_generators.BiometricProvider()
+name_provider = data_generators.PersonNameProvider(generator)
+person_provider = data_generators.PersonDetailsProvider(generator)
+sequence_provider = data_generators.SequenceProvider()
+
+if config.has_option('Record', 'header'):
+    print config.get('Record', 'header')
+
+for _ in range(num_records):
+    while True:
+        d = gender_provider.generate()
+        for provider in [biometric_provider, name_provider]:
+            d.update(provider.generate(gender=d['gender']))
+        for provider in [
+            sequence_provider, person_provider, residential_address_provider, city_provider, itinerary_provider]:
+            d.update(provider.generate())
+        try:
+            print record_template.safe_substitute(d)
+        except UnicodeDecodeError:
+            continue
+        break

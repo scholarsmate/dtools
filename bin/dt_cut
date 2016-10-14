@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+import inspect
+import os
+import sys
+
+import dt_settings
+
+dtlib_path = os.path.realpath(
+    os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), dt_settings.DTOOLS_LIB_RELATIVE_PATH))
+if dtlib_path not in sys.path:
+    sys.path.insert(0, dtlib_path)
+
+from dtools_lib import delimited_record
+
+sep = dt_settings.DEFAULT_DELIMITER
+desired_fields = sys.argv[1].split(',')
+print sep.join(desired_fields)
+for fields in delimited_record.cut_fields(sys.stdin, desired_fields, sep=sep):
+    print sep.join(fields)

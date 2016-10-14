@@ -1,0 +1,119 @@
+#!/usr/bin/env python
+
+import inspect
+import operator
+import os
+import sys
+
+import dt_settings
+
+dtlib_path = os.path.realpath(
+    os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), dt_settings.DTOOLS_LIB_RELATIVE_PATH))
+if dtlib_path not in sys.path:
+    sys.path.insert(0, dtlib_path)
+
+from dtools_lib import transforms
+
+
+class ColumnarTable(object):
+    class Profile(object):
+        value_histogram = None
+        pattern_histogram = None
+        minimum_length = sys.maxint
+        maximum_length = 0
+        minimum_length_exemplar = None
+        maximum_length_exemplar = None
+
+    def __init__(self, header):
+        self.header_ = header
+        self.ctable_ = {}
+        for col in header:
+            self.ctable_[col] = []
+        self.numcols_ = len(header)
+
+    def add_row(self, row):
+        if len(row) != self.numcols_:
+            raise ValueError('number of columns in the given row does not match the number of columns in this table')
+        for col in range(0, self.numcols_):
+            self.ctable_[self.header_[col]].append(row[col])
+
+    def get_header(self):
+        return self.header_
+
+    def profile_column(self, column):
+        prof = self.Profile()
+        value_histogram = {}
+        pattern_histogram = {}
+        for val in self.ctable_[column]:
+            val_len = len(val)
+            if val_len < prof.minimum_length:
+                prof.minimum_length = val_len
+                prof.minimum_length_exemplar = val
+            if val_len > prof.maximum_length:
+                prof.maximum_length = val_len
+                prof.maximum_length_exemplar = val
+            if val in value_histogram:
+                value_histogram[val] += 1
+            else:
+                value_histogram[val] = 1
+            pattern = transforms.Pattern(val)
+            if pattern in pattern_histogram:
+                pattern_histogram[pattern] = (pattern_histogram[pattern][0] + 1, pattern_histogram[pattern][1])
+            else:
+                pattern_histogram[pattern] = (1, val)
+        prof.value_histogram = value_histogram
+        prof.pattern_histogram = pattern_histogram
+        return prof
+
+
+def populate_columnar_table(fileobj, sep='|', header=None):
+    if header is None:
+        header = fileobj.readline().rstrip().split(sep)
+    result = ColumnarTable(header)
+    for row in fileobj:
+        result.add_row(row.rstrip().split(sep))
+    return result
+
+
+def profile(table, limit=100):
+    for col in table.get_header():
+        profile = table.profile_column(col)
+        print '*' * 79
+        print "column name: {0:s}\nminimum length: {1:d} [{2:s}]\n" \
+              "maximum length: {3:d} [{4:s}]\n" \
+              "count: {5:d}, distinct values: {6:d}, distinct patterns: {7:d}".format(
+            col, profile.minimum_length, profile.minimum_length_exemplar, profile.maximum_length,
+            profile.maximum_length_exemplar, sum(profile.value_histogram.values()), len(profile.value_histogram),
+            len(profile.pattern_histogram))
+        print '=' * 79
+        l = 0
+        p = profile.value_histogram
+        for i in sorted(p.items(), key=operator.itemgetter(1), reverse=True):
+            sys.stdout.write('\'' + i[0] + '\': ' + str(i[1]) + ', ')
+            #            sys.stdout.write('\'' + i[0] + '\', ')
+            l += 1
+            if l == limit:
+                sys.stdout.write('...')
+                break
+        print
+        print '=' * 79
+        l = 0
+        p = profile.pattern_histogram
+        for i in sorted(p.items(), key=operator.itemgetter(1), reverse=True):
+            sys.stdout.write('\'' + i[0] + '\': ' + str(i[1][0]) + ' [' + i[1][1] + '], ')
+            #            sys.stdout.write('\'' + i[0] + '\', ')
+            l += 1
+            if l == limit:
+                sys.stdout.write('...')
+                break
+        print
+
+
+table = None
+sep = dt_settings.DEFAULT_DELIMITER
+if len(sys.argv) > 1:
+    with open(sys.argv[1], 'r') as f:
+        table = populate_columnar_table(f, sep)
+else:
+    table = populate_columnar_table(sys.stdin, sep)
+profile(table)

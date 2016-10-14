@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+
+import inspect
+import os
+import sys
+
+import dt_settings
+
+dtlib_path = os.path.realpath(
+    os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), dt_settings.DTOOLS_LIB_RELATIVE_PATH))
+if dtlib_path not in sys.path:
+    sys.path.insert(0, dtlib_path)
+
+from dtools_lib import delimited_record
+
+sep = dt_settings.DEFAULT_DELIMITER
+
+header = sys.stdin.readline().rstrip().split(sep)
+lookup = {}
+join_key_index = []
+
+with open(sys.argv[1], 'rb') as ref_file:
+    ref_header = ref_file.readline().rstrip().split(sep)
+    if len(sys.argv) > 2:
+        rename_map = {}
+        for item in sys.argv[2].split(','):
+            key, value = item.split(':', 1)
+            rename_map[key] = value
+        ref_header = [rename_map[field] if field in rename_map else field for field in ref_header]
+    ref_join_key_index = []
+    for i in range(0, len(header)):
+        for j in range(0, len(ref_header)):
+            if header[i] == ref_header[j]:
+                join_key_index.append(i)
+                ref_join_key_index.append(j)
+                break
+    ref_merge_key_index = []
+    for i in range(0, len(ref_header)):
+        if i not in ref_join_key_index:
+            ref_merge_key_index.append(i)
+            header.append(ref_header[i])
+    for rec in delimited_record.read_delimited(ref_file, sep):
+        lookup[sep.join([rec[i] for i in ref_join_key_index])] = sep.join([rec[i] for i in ref_merge_key_index])
+
+record_count = 0
+joined_count = 0
+print sep.join(header)
+for rec in delimited_record.read_delimited(sys.stdin, sep):
+    record_count += 1
+    join_key = sep.join([rec[i] for i in join_key_index])
+    if join_key in lookup:
+        joined_count += 1
+        rec.append(lookup[join_key])
+        print sep.join(rec)
+    else:
+        dt_settings.logger.debug('Record %d did not join:\n%s', record_count, sep.join(rec))
+dt_settings.logger.info('Records:%d,Joined:%d', record_count, joined_count)
