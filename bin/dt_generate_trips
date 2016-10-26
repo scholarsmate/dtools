@@ -1,0 +1,171 @@
+#!/usr/bin/env python
+
+import ConfigParser
+import argparse
+import datetime
+import inspect
+import os
+import random
+import sys
+from collections import defaultdict
+
+import dt_settings
+
+dtlib_path = os.path.realpath(
+    os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), dt_settings.DTOOLS_LIB_RELATIVE_PATH))
+if dtlib_path not in sys.path:
+    sys.path.insert(0, dtlib_path)
+
+from dtools_lib import delimited_record, chooser
+
+
+def create_multi_map(fileobj, key, header=None, sep='|'):
+    result = defaultdict(list)
+    for rec in delimited_record.read_records(fileobj, header=header, sep=sep):
+        result[rec[key]].append(rec)
+    return result
+
+
+def generate_num_travel_companions(minimum=0, maximum=13, prob=6):
+    travel_companions = minimum
+    while random.randint(0, 9) < prob:
+        travel_companions += 1
+        if travel_companions > maximum:
+            break
+    return travel_companions
+
+
+def generate_countries_visited(country_provider, minimum=0, maximum=10, prob=0.65):
+    if minimum > 0:
+        countries_visited = [country_provider.choose() for _ in range(minimum)]
+    else:
+        countries_visited = []
+    while random.random() <= prob:
+        countries_visited.append(country_provider.choose())
+        if len(countries_visited) > maximum:
+            break
+    return countries_visited
+
+
+def generate_trips(trips_per_record, domestic_country, airline_choices, airport_choices, end_date, days_chooser,
+                   days_min, days_max, date_format,
+                   start_domestic_probability, visit_different_foreign_country_probability,
+                   return_from_different_foreign_country_probability,
+                   fileobj, header=None, sep='|', prefix=''):
+    foreign_countries = list(set(airline_choices.keys()) & set(airport_choices.keys()))
+    foreign_countries.remove(dt_settings.DEFAULT_DOMESTIC_COUNTRY_CODE)
+    foreign_country_chooser = chooser.Chooser(foreign_countries)
+    cols = None
+    for rec in delimited_record.read_records(fileobj, header=header, sep=sep):
+        domestic_departure = bool(random.random() <= start_domestic_probability)
+        tdate = end_date
+        date_list = []
+
+        for _ in range(trips_per_record):
+            stay = min(max(days_chooser.choose(), days_min), days_max)
+            arrival_date = tdate - datetime.timedelta(days=stay)
+            tdate = arrival_date - datetime.timedelta(hours=7)
+            date_list.append((tdate.strftime(date_format), arrival_date.strftime(date_format)))
+
+        foreign_country = None
+        for trip_no in range(trips_per_record):
+            if domestic_departure:
+                departure_country = domestic_country
+                if foreign_country is not None:
+                    arrival_country = foreign_country_chooser.choose() \
+                        if random.random <= visit_different_foreign_country_probability else foreign_country
+                else:
+                    arrival_country = foreign_country_chooser.choose()
+                foreign_country = arrival_country
+                rec[prefix + 'family_member_count'] = ''
+                rec[prefix + 'business_trip'] = ''
+                rec[prefix + 'countries_visited_count'] = ''
+                rec[prefix + 'countries_visited'] = ''
+                rec[prefix + 'carrying_over_10k_usd'] = ''
+                rec[prefix + 'commercial_merchandise'] = ''
+            else:
+                arrival_country = domestic_country
+                if foreign_country is not None:
+                    departure_country = foreign_country_chooser.choose() \
+                        if random.random() <= return_from_different_foreign_country_probability else foreign_country
+                else:
+                    departure_country = foreign_country_chooser.choose()
+                foreign_country = departure_country
+                countries_visited = [departure_country]
+                countries_visited.extend(generate_countries_visited(foreign_country_chooser))
+                num_travel_companions = generate_num_travel_companions()
+                rec[prefix + 'family_member_count'] = str(num_travel_companions)
+                rec[prefix + 'business_trip'] = 'yes' if random.randint(0, 8 + num_travel_companions) < 5 else 'no'
+                rec[prefix + 'countries_visited_count'] = str(len(countries_visited))
+                rec[prefix + 'countries_visited'] = ", ".join(countries_visited)
+                rec[prefix + 'carrying_over_10k_usd'] = 'yes' if random.random() <= 0.005 else 'no'
+                rec[prefix + 'commercial_merchandise'] = 'yes' if random.random() <= 0.01 else 'no'
+
+            airline = random.choice(airline_choices[departure_country]) \
+                if random.random() <= 0.7 else random.choice(airline_choices[arrival_country])
+            departure_airport = random.choice(airport_choices[departure_country])
+            arrival_airport = random.choice(airport_choices[arrival_country])
+
+            rec[prefix + 'airline_name'] = airline['airline']
+            rec[prefix + 'airline_country'] = airline['country']
+            rec[prefix + 'airline_iata'] = airline['IATA']
+            rec[prefix + 'airline_flight'] = str(random.randint(100, 9000))
+
+            rec[prefix + 'departure_airport'] = departure_airport['name']
+            rec[prefix + 'departure_airport_iata'] = departure_airport['iata_code']
+            rec[prefix + 'departure_airport_municipality'] = departure_airport['municipality']
+            rec[prefix + 'departure_airport_region'] = departure_airport['iso_region']
+            rec[prefix + 'departure_airport_country_code'] = departure_airport['country_code']
+
+            rec[prefix + 'arrival_airport'] = arrival_airport['name']
+            rec[prefix + 'arrival_airport_iata'] = arrival_airport['iata_code']
+            rec[prefix + 'arrival_airport_municipality'] = arrival_airport['municipality']
+            rec[prefix + 'arrival_airport_region'] = arrival_airport['iso_region']
+            rec[prefix + 'arrival_airport_country_code'] = arrival_airport['country_code']
+
+            rec[prefix + 'departure_time'], rec[prefix + 'arrival_time'] = date_list.pop()
+
+            domestic_departure = not domestic_departure
+            rec[prefix + 'trip_number'] = str(trip_no + 1)
+            if cols is None:
+                cols = rec.keys()
+                print sep.join(cols)
+            print sep.join(rec.values())
+
+
+parser = argparse.ArgumentParser(description="Generate customs declarations fields from passport data")
+parser.add_argument('--fs', nargs='?', default=dt_settings.DEFAULT_DELIMITER,
+                    help="Field separator (default: {0})".format(dt_settings.DEFAULT_DELIMITER))
+parser.add_argument('--prefix', nargs='?', default='', help='prefix to add to generated fields')
+parser.add_argument('configfile', help="configuration file")
+parser.add_argument('infile', nargs='?', type=argparse.FileType('rb'), default=sys.stdin, help="delimited input file")
+
+args = parser.parse_args()
+
+config = ConfigParser.ConfigParser()
+config.read(args.configfile)
+
+if config.has_option('Generator', 'seed'):
+    # Seed PRNGs
+    seed = config.getint('Generator', 'seed')
+    random.seed(seed)
+
+with open(config.get('Generator', 'airline_codes'), 'rb') as f:
+    airline_choices = create_multi_map(f, 'country_code')
+with open(config.get('Generator', 'airport_codes'), 'rb') as f:
+    airport_choices = create_multi_map(f, 'country_code')
+
+end_date = config.get('Generator', 'days_end')
+end_date = datetime.datetime.today() if \
+    end_date.lower() == 'now' else datetime.datetime.strptime(end_date, config.get('Generator', 'date_format'))
+
+generate_trips(config.getint('Generator', 'trips_per_record'), dt_settings.DEFAULT_DOMESTIC_COUNTRY_CODE,
+               airline_choices, airport_choices, end_date,
+               chooser.GaussianChooser(config.getfloat('Generator', 'days_mean'),
+                                       config.getint('Generator', 'days_min'), config.getint('Generator', 'days_max')),
+               config.getfloat('Generator', 'days_std_dev'),
+               config.getint('Generator', 'days_max'),
+               config.get('Generator', 'date_format'),
+               config.getfloat('Generator', 'start_domestic_probability'),
+               config.getfloat('Generator', 'visit_different_foreign_country_probability'),
+               config.getfloat('Generator', 'return_from_different_foreign_country_probability'), sys.stdin)

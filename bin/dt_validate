@@ -2,6 +2,7 @@
 
 import argparse
 import inspect
+import logging
 import os
 import sys
 
@@ -14,30 +15,35 @@ if dtlib_path not in sys.path:
 
 from dtools_lib import delimited_record
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--delimiter', nargs='?', default=dt_settings.DEFAULT_DELIMITER,
-                    help='Set the field separator to this (default: {0}'.format(dt_settings.DEFAULT_DELIMITER))
-parser.add_argument('--check', action='store_true', help='Only perform the check, do not emit valid records')
+parser = argparse.ArgumentParser(description="Validate a file or stream of delimited records")
+parser.add_argument('--fs', nargs='?', default=dt_settings.DEFAULT_DELIMITER,
+                    help="Field separator (default: {0})".format(dt_settings.DEFAULT_DELIMITER))
+parser.add_argument('--check', action='store_true', help="Only perform the validation check, do not emit valid records")
+parser.add_argument('--verbose', action='store_const', dest='log_level', const=logging.INFO, default=logging.WARNING,
+                    help="Be more verbose")
+parser.add_argument('infile', nargs='?', type=argparse.FileType('rb'), default=sys.stdin, help="delimited input file")
+
 args = parser.parse_args()
 
-sep = dt_settings.DEFAULT_DELIMITER
-header = sys.stdin.readline().rstrip().split(sep)
+dt_settings.logger.setLevel(args.log_level)
+header = args.infile.readline().rstrip().split(args.fs)
 num_fields = len(header)
 good_recs, bad_recs = 0, 0
 if not args.check:
-    print sep.join(header)
-for rec in delimited_record.read_delimited(sys.stdin, sep):
+    print args.fs.join(header)
+for rec in delimited_record.read_delimited(args.infile, args.fs):
     if len(rec) != num_fields:
         bad_recs += 1
-        dt_settings.logger.warning(
-            'Record %d (%d fields expected, actual %d):\n%s', bad_recs + good_recs, num_fields, len(rec), sep.join(rec))
+        dt_settings.logger.info(
+            "Record %d (%d fields expected, actual %d):\n%s\n%s", bad_recs + good_recs, num_fields, len(rec),
+            args.fs.join(header), args.fs.join(rec))
     else:
         good_recs += 1
         if not args.check:
-            print sep.join(rec)
+            print args.fs.join(rec)
 
 if args.check:
-    print 'Valid:{0},Invalid:{1}'.format(good_recs, bad_recs)
+    print "Valid:{0:d},Invalid:{1:d}".format(good_recs, bad_recs)
 
 if bad_recs > 0:
     exit(1)

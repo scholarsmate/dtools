@@ -18,6 +18,35 @@ from faker import Factory
 
 from dtools_lib import data_generators
 
+
+def template_variables(template):
+    """Extract the variable names from a string.Template.
+
+    Returns a list of all variable names found in the template, in the order
+    in which they occur.  If an invalid escape sequence occurs, the same
+    error will be raised as if an attempt was made to expand the template.
+    """
+    result = []
+    for match in template.pattern.finditer(template.template):
+        if match.group('invalid') is not None:
+            # Raises ValueError
+            template._invalid(match)
+        if match.group('escaped') is not None:
+            continue
+        # The "or None" should be moot.  It is there to ensure equivalent
+        # treatment for an empty 'named' and an empty 'braced'.
+        result.append(match.group('named') or match.group('braced') or None)
+    return result
+
+
+def populate_template(s, d):
+    # The unfortunate thing here is that template substitutions hit all items in the dictionary even when the
+    # template doesn't need it.  To fix this we need to process the template string for the possible keys and
+    # only send in a dict with those keys.
+    t = Template(s)
+    return t.safe_substitute(dict((k, d[k]) for k in template_variables(t) if k in d))
+
+
 config = ConfigParser.ConfigParser()
 config.read(sys.argv[1])
 
@@ -28,7 +57,7 @@ except IndexError:
     if config.has_option('Generator', 'records'):
         num_records = config.getint('Generator', 'records')
 
-record_template = Template(config.get('Record', 'template'))
+record_template = config.get('Record', 'template')
 generator = Factory.create(config.get('Generator', 'locale', None))
 
 if config.has_option('Generator', 'seed'):
@@ -56,15 +85,28 @@ if config.has_option('Record', 'header'):
     print config.get('Record', 'header')
 
 for _ in range(num_records):
+    tmpl = record_template
     while True:
-        d = gender_provider.generate()
-        for provider in [biometric_provider, name_provider]:
-            d.update(provider.generate(gender=d['gender']))
-        for provider in [
-            sequence_provider, person_provider, residential_address_provider, city_provider, itinerary_provider]:
-            d.update(provider.generate())
         try:
-            print record_template.safe_substitute(d)
+            d = gender_provider.generate()
+            tmpl = populate_template(tmpl, d)
+            for provider in [biometric_provider, name_provider]:
+                tmpl = populate_template(tmpl, provider.generate(gender=d['gender']))
+            if '$' not in tmpl:
+                break
+            for provider in [sequence_provider, residential_address_provider, itinerary_provider]:
+                tmpl = populate_template(tmpl, provider.generate())
+                if Template.delimiter not in tmpl:
+                    break
+            if Template.delimiter in tmpl:
+                d1 = city_provider.generate()
+                tmpl = populate_template(tmpl, d1)
+                if Template.delimiter in tmpl:
+                    d2 = person_provider.generate()
+                    if random.random() > 0.05:
+                        d2['citizenship'] = d1['birth_country_code']
+                    tmpl = populate_template(tmpl, d2)
+            print tmpl
         except UnicodeDecodeError:
             continue
         break

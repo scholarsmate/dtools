@@ -19,7 +19,7 @@ class ColumnarTable(object):
     class Profile(object):
         value_histogram = None
         pattern_histogram = None
-        minimum_length = sys.maxint
+        minimum_length = sys.maxsize
         maximum_length = 0
         minimum_length_exemplar = None
         maximum_length_exemplar = None

@@ -7443,7 +7443,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 19057|Levittown|Pennsylvania|PA|Bucks|40.1434|-74.8614
 19058|Levittown|Pennsylvania|PA|Bucks|40.3286|-75.1028
 19059|Levittown|Pennsylvania|PA|Bucks|40.3286|-75.1028
-19060|Garnet Valley|Pennsylvania|PA|Delaware|39.852|-75.5007|5
+19060|Garnet Valley|Pennsylvania|PA|Delaware|39.852|-75.5007
 19061|Marcus Hook|Pennsylvania|PA|Delaware|39.8295|-75.4354
 19063|Media|Pennsylvania|PA|Delaware|39.9188|-75.3991
 19064|Springfield|Pennsylvania|PA|Delaware|39.9296|-75.3338
@@ -22783,7 +22783,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 50321|Des Moines|Iowa|IA|Polk|41.5476|-93.6618
 50322|Urbandale|Iowa|IA|Polk|41.6295|-93.723
 50323|Urbandale|Iowa|IA|Polk|41.6294|-93.7717
-50324|Windsor Heights|Iowa|IA|Polk|41.6032|-93.7152|5
+50324|Windsor Heights|Iowa|IA|Polk|41.6032|-93.7152
 50325|Clive|Iowa|IA|Polk|41.6067|-93.7457
 50327|Des Moines|Iowa|IA|Polk|41.5815|-93.4848
 50328|Des Moines|Iowa|IA|Polk|41.6727|-93.5722
@@ -27234,7 +27234,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 60481|Wilmington|Illinois|IL|Will|41.284|-88.1231
 60482|Worth|Illinois|IL|Cook|41.6895|-87.7863
 60483|Tinley Park|Illinois|IL||41.5772|-87.7887
-60484|University Park|Illinois|IL|Will|41.4418|-87.7101|5
+60484|University Park|Illinois|IL|Will|41.4418|-87.7101
 60487|Tinley Park|Illinois|IL||41.5636|-87.8342
 60490|Bolingbrook|Illinois|IL|Will|41.679|-88.1403
 60491|Homer Glen|Illinois|IL|Will|41.6028|-87.9599
@@ -27452,7 +27452,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 60955|Onarga|Illinois|IL|Iroquois|40.712|-87.9958
 60956|Papineau|Illinois|IL|Iroquois|40.967|-87.7161
 60957|Paxton|Illinois|IL|Ford|40.4565|-88.099
-60958|Pembroke Township|Illinois|IL|Kankakee|41.0646|-87.5917|5
+60958|Pembroke Township|Illinois|IL|Kankakee|41.0646|-87.5917
 60959|Piper City|Illinois|IL|Ford|40.7556|-88.1873
 60960|Rankin|Illinois|IL|Vermilion|40.4559|-87.8884
 60961|Reddick|Illinois|IL|Kankakee|41.1005|-88.2089
@@ -34879,7 +34879,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 77402|Bellaire|Texas|TX|Harris|29.834|-95.4342
 77404|Bay City|Texas|TX|Matagorda|28.7982|-95.6511
 77406|Richmond|Texas|TX|Fort Bend|29.6436|-95.798
-77407|Richmond|Texas|TX|Fort Bend|29.6625|-95.7272|5
+77407|Richmond|Texas|TX|Fort Bend|29.6625|-95.7272
 77410|Cypress|Texas|TX|Harris|29.834|-95.4342
 77411|Alief|Texas|TX|Harris|29.834|-95.4342
 77412|Altair|Texas|TX|Colorado|29.6047|-96.5249
@@ -34958,7 +34958,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 77494|Katy|Texas|TX|Harris|29.7404|-95.8304
 77496|Sugar Land|Texas|TX|Fort Bend|29.5255|-95.7565
 77497|Stafford|Texas|TX|Fort Bend|29.5255|-95.7565
-77498|Sugar Land|Texas|TX|Fort Bend|29.6396|-95.65|5
+77498|Sugar Land|Texas|TX|Fort Bend|29.6396|-95.65
 77501|Pasadena|Texas|TX|Harris|29.834|-95.4342
 77502|Pasadena|Texas|TX|Harris|29.6789|-95.1982
 77503|Pasadena|Texas|TX|Harris|29.6877|-95.1572
@@ -34979,7 +34979,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 77520|Baytown|Texas|TX|Harris|29.7461|-94.9653
 77521|Baytown|Texas|TX|Harris|29.7705|-94.9695
 77522|Baytown|Texas|TX|Harris|29.834|-95.4342
-77523|Baytown|Texas|TX|Chambers|29.77|-94.8608|5
+77523|Baytown|Texas|TX|Chambers|29.77|-94.8608
 77530|Channelview|Texas|TX|Harris|29.7914|-95.1317
 77531|Clute|Texas|TX|Brazoria|29.0325|-95.4026
 77532|Crosby|Texas|TX|Harris|29.9249|-95.0578
@@ -35472,7 +35472,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 78539|Edinburg|Texas|TX|Hidalgo|26.2792|-98.1832
 78540|Edinburg|Texas|TX|Hidalgo|26.3194|-98.1909
 78541|Edinburg|Texas|TX|Hidalgo|26.4481|-98.2842
-78542|Edinburg|Texas|TX|Hidalgo|26.4661|-98.0695|5
+78542|Edinburg|Texas|TX|Hidalgo|26.4661|-98.0695
 78543|Elsa|Texas|TX|Hidalgo|26.2974|-97.9884
 78545|Falcon Heights|Texas|TX|Starr|26.562|-99.1335
 78547|Garciasville|Texas|TX|Starr|26.3396|-98.6876
@@ -36819,7 +36819,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 81335|Yellow Jacket|Colorado|CO|Montezuma|37.4995|-108.7852
 81401|Montrose|Colorado|CO|Montrose|38.4678|-107.8752
 81402|Montrose|Colorado|CO|Montrose|38.4851|-107.886
-81403|Montrose|Colorado|CO|Montrose|38.3602|-107.9381|5
+81403|Montrose|Colorado|CO|Montrose|38.3602|-107.9381
 81410|Austin|Colorado|CO|Delta|38.7975|-107.9738
 81411|Bedrock|Colorado|CO|Montrose|38.2509|-108.9799
 81413|Cedaredge|Colorado|CO|Delta|38.9119|-107.9268
@@ -36850,7 +36850,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 81504|Grand Junction|Colorado|CO|Mesa|39.0791|-108.4916
 81505|Grand Junction|Colorado|CO|Mesa|39.1071|-108.5968
 81506|Grand Junction|Colorado|CO|Mesa|39.1032|-108.5491
-81507|Grand Junction|Colorado|CO|Mesa|39.0158|-108.6129|5
+81507|Grand Junction|Colorado|CO|Mesa|39.0158|-108.6129
 81520|Clifton|Colorado|CO|Mesa|39.0805|-108.4496
 81521|Fruita|Colorado|CO|Mesa|39.1637|-108.7218
 81522|Gateway|Colorado|CO|Mesa|38.6784|-108.9719
@@ -37517,7 +37517,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 84078|Vernal|Utah|UT|Uintah|40.4406|-109.5469
 84079|Vernal|Utah|UT|Uintah|40.1602|-109.5478
 84080|Vernon|Utah|UT|Tooele|40.0826|-112.426
-84081|West Jordan|Utah|UT|Salt Lake|40.6037|-112.0411|5
+84081|West Jordan|Utah|UT|Salt Lake|40.6037|-112.0411
 84082|Wallsburg|Utah|UT|Wasatch|40.3657|-111.4649
 84083|Wendover|Utah|UT|Tooele|40.7329|-113.9918
 84084|West Jordan|Utah|UT|Salt Lake|40.6254|-111.9677
@@ -37881,26 +37881,26 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 85097|Phoenix|Arizona|AZ|Maricopa|33.2765|-112.1872
 85098|Phoenix|Arizona|AZ|Maricopa|33.2765|-112.1872
 85099|Phoenix|Arizona|AZ|Maricopa|33.2765|-112.1872
-85118|Gold Canyon|Arizona|AZ|Pinal|33.3284|-111.3502|5
-85119|Apache Junction|Arizona|AZ|Pinal|33.4001|-111.5028|5
-85120|Apache Junction|Arizona|AZ|Pinal|33.3931|-111.5768|5
-85121|Bapchule|Arizona|AZ|Pinal|33.1405|-111.9128|5
+85118|Gold Canyon|Arizona|AZ|Pinal|33.3284|-111.3502
+85119|Apache Junction|Arizona|AZ|Pinal|33.4001|-111.5028
+85120|Apache Junction|Arizona|AZ|Pinal|33.3931|-111.5768
+85121|Bapchule|Arizona|AZ|Pinal|33.1405|-111.9128
 85122|Casa Grande|Arizona|AZ|Pinal|32.8906|-111.754
 85123|Arizona City|Arizona|AZ|Pinal|32.7452|-111.6033
 85128|Coolidge|Arizona|AZ|Pinal|32.9574|-111.5344
 85130|Casa Grande|Arizona|AZ|Pinal|32.8151|-111.7054
 85131|Eloy|Arizona|AZ|Pinal|32.7509|-111.5833
 85132|Florence|Arizona|AZ|Pinal|32.9969|-111.3612
-85135|Hayden|Arizona|AZ|Gila|33.0041|-110.7868|5
+85135|Hayden|Arizona|AZ|Gila|33.0041|-110.7868
 85137|Kearny|Arizona|AZ|Pinal|33.0594|-110.9123
 85138|Maricopa|Arizona|AZ||33.0073|-111.9324
 85139|Maricopa|Arizona|AZ|Pinal|32.9576|-112.0534
 85140|Queen Creek|Arizona|AZ||33.2286|-111.5322
-85141|Picacho|Arizona|AZ|Pinal|32.6686|-111.4549|5
+85141|Picacho|Arizona|AZ|Pinal|32.6686|-111.4549
 85142|Queen Creek|Arizona|AZ|Maricopa|33.2848|-111.6561
 85143|Queen Creek|Arizona|AZ||33.1598|-111.5618
 85145|Red Rock|Arizona|AZ|Pinal|32.58|-111.341
-85147|Sacaton|Arizona|AZ|Pinal|33.1234|-111.7384|5
+85147|Sacaton|Arizona|AZ|Pinal|33.1234|-111.7384
 85172|Stanfield|Arizona|AZ|Pinal|32.8823|-111.966
 85173|Superior|Arizona|AZ|Pinal|33.2887|-111.0985
 85179|Florence|Arizona|AZ|Pinal|32.9837|-111.326
@@ -38193,7 +38193,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 85752|Tucson|Arizona|AZ|Pima|31.9701|-111.8907
 85754|Tucson|Arizona|AZ|Pima|31.9701|-111.8907
 85755|Oro Valley|Arizona|AZ||32.4738|-110.9553
-85756|Tucson|Arizona|AZ|Pima|32.0839|-110.9004|5
+85756|Tucson|Arizona|AZ|Pima|32.0839|-110.9004
 85757|Tucson|Arizona|AZ||32.1336|-111.0973
 85775|Tucson|Arizona|AZ|Pima|31.9701|-111.8907
 85777|Tucson|Arizona|AZ|Pima|32.0718|-110.8591
@@ -38267,7 +38267,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 86312|Prescott Valley|Arizona|AZ|Yavapai|34.6683|-112.3078
 86313|Prescott|Arizona|AZ|Yavapai|34.7067|-112.3977
 86314|Prescott Valley|Arizona|AZ|Yavapai|34.6019|-112.3264
-86315|Prescott Valley|Arizona|AZ|Yavapai|34.7055|-112.2639|5
+86315|Prescott Valley|Arizona|AZ|Yavapai|34.7055|-112.2639
 86320|Ash Fork|Arizona|AZ|Yavapai|35.215|-112.5027
 86321|Bagdad|Arizona|AZ|Yavapai|34.5785|-113.1755
 86322|Camp Verde|Arizona|AZ|Yavapai|34.5697|-111.8551
@@ -39203,7 +39203,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 90087|Los Angeles|California|CA|Los Angeles|33.7866|-118.2987
 90088|Los Angeles|California|CA|Los Angeles|33.7866|-118.2987
 90089|Los Angeles|California|CA|Los Angeles|33.7866|-118.2987
-90090|Dodgertown|California|CA|Los Angeles|34.0725|-118.2418|5
+90090|Dodgertown|California|CA|Los Angeles|34.0725|-118.2418
 90091|Los Angeles|California|CA|Los Angeles|33.7866|-118.2987
 90093|Los Angeles|California|CA|Los Angeles|33.7866|-118.2987
 90094|Los Angeles|California|CA|Los Angeles|33.9754|-118.417
@@ -39314,15 +39314,15 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 90609|Whittier|California|CA|Los Angeles|33.7866|-118.2987
 90610|Whittier|California|CA|Los Angeles|33.7866|-118.2987
 90612|Whittier|California|CA|Los Angeles|33.7866|-118.2987
-90620|Buena Park|California|CA|Orange|33.8439|-118.008|5
-90621|Buena Park|California|CA|Orange|33.8772|-117.9893|5
-90622|Buena Park|California|CA|Orange|33.8462|-118.0031|5
-90623|La Palma|California|CA|Orange|33.8491|-118.0398|5
-90624|Buena Park|California|CA|Orange|33.8584|-118.0033|5
-90630|Cypress|California|CA|Orange|33.8181|-118.0357|5
-90631|La Habra|California|CA|Orange|33.9331|-117.9494|5
-90632|La Habra|California|CA|Orange|33.9143|-117.9547|5
-90633|La Habra|California|CA|Orange|33.9345|-117.9452|5
+90620|Buena Park|California|CA|Orange|33.8439|-118.008
+90621|Buena Park|California|CA|Orange|33.8772|-117.9893
+90622|Buena Park|California|CA|Orange|33.8462|-118.0031
+90623|La Palma|California|CA|Orange|33.8491|-118.0398
+90624|Buena Park|California|CA|Orange|33.8584|-118.0033
+90630|Cypress|California|CA|Orange|33.8181|-118.0357
+90631|La Habra|California|CA|Orange|33.9331|-117.9494
+90632|La Habra|California|CA|Orange|33.9143|-117.9547
+90633|La Habra|California|CA|Orange|33.9345|-117.9452
 90637|La Mirada|California|CA|Los Angeles|33.7866|-118.2987
 90638|La Mirada|California|CA|Los Angeles|33.9067|-118.0101
 90639|La Mirada|California|CA|Los Angeles|33.9058|-118.0182
@@ -39337,7 +39337,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 90665|Pico Rivera|California|CA|Los Angeles|33.7866|-118.2987
 90670|Santa Fe Springs|California|CA|Los Angeles|33.9464|-118.0838
 90671|Santa Fe Springs|California|CA|Los Angeles|33.7866|-118.2987
-90680|Stanton|California|CA|Orange|33.7991|-117.9956|5
+90680|Stanton|California|CA|Orange|33.7991|-117.9956
 90701|Artesia|California|CA|Los Angeles|33.8654|-118.0731
 90702|Artesia|California|CA|Los Angeles|33.7866|-118.2987
 90703|Cerritos|California|CA|Los Angeles|33.8669|-118.0686
@@ -39352,16 +39352,16 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 90715|Lakewood|California|CA|Los Angeles|33.8405|-118.0767
 90716|Hawaiian Gardens|California|CA|Los Angeles|33.8296|-118.073
 90717|Lomita|California|CA|Los Angeles|33.7938|-118.3172
-90720|Los Alamitos|California|CA|Orange|33.7956|-118.0648|5
-90721|Los Alamitos|California|CA|Orange|33.8023|-118.069|5
+90720|Los Alamitos|California|CA|Orange|33.7956|-118.0648
+90721|Los Alamitos|California|CA|Orange|33.8023|-118.069
 90723|Paramount|California|CA|Los Angeles|33.8969|-118.1632
 90731|San Pedro|California|CA|Los Angeles|33.7339|-118.2914
 90732|San Pedro|California|CA|Los Angeles|33.742|-118.3121
 90733|San Pedro|California|CA|Los Angeles|33.7866|-118.2987
 90734|San Pedro|California|CA|Los Angeles|33.7866|-118.2987
-90740|Seal Beach|California|CA|Orange|33.7602|-118.0808|5
-90742|Sunset Beach|California|CA|Orange|33.7188|-118.0699|5
-90743|Surfside|California|CA|Orange|33.7264|-118.0833|5
+90740|Seal Beach|California|CA|Orange|33.7602|-118.0808
+90742|Sunset Beach|California|CA|Orange|33.7188|-118.0699
+90743|Surfside|California|CA|Orange|33.7264|-118.0833
 90744|Wilmington|California|CA|Los Angeles|33.7855|-118.2645
 90745|Carson|California|CA|Los Angeles|33.823|-118.2684
 90746|Carson|California|CA|Los Angeles|33.8584|-118.2554
@@ -40106,63 +40106,63 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 92596|Winchester|California|CA|Riverside|33.6243|-117.0885
 92599|Perris|California|CA|Riverside|33.7529|-116.0556
 92601|Atwood|California|CA||33.8654|-117.83
-92602|Irvine|California|CA|Orange|33.7419|-117.7467|5
-92603|Irvine|California|CA|Orange|33.6245|-117.794|5
-92604|Irvine|California|CA|Orange|33.6899|-117.7868|5
-92605|Huntington Beach|California|CA|Orange|33.7151|-118.0077|5
-92606|Irvine|California|CA|Orange|33.6951|-117.8224|5
-92607|Laguna Niguel|California|CA|Orange|33.5269|-117.7117|5
-92609|El Toro|California|CA||33.624|-117.6908|5
-92610|Foothill Ranch|California|CA|Orange|33.6748|-117.6649|5
-92612|Irvine|California|CA|Orange|33.6607|-117.8264|5
+92602|Irvine|California|CA|Orange|33.7419|-117.7467
+92603|Irvine|California|CA|Orange|33.6245|-117.794
+92604|Irvine|California|CA|Orange|33.6899|-117.7868
+92605|Huntington Beach|California|CA|Orange|33.7151|-118.0077
+92606|Irvine|California|CA|Orange|33.6951|-117.8224
+92607|Laguna Niguel|California|CA|Orange|33.5269|-117.7117
+92609|El Toro|California|CA||33.624|-117.6908
+92610|Foothill Ranch|California|CA|Orange|33.6748|-117.6649
+92612|Irvine|California|CA|Orange|33.6607|-117.8264
 92613|Orange|California|CA||33.8053|-117.8348
-92614|Irvine|California|CA|Orange|33.6829|-117.8298|5
-92615|Huntington Beach|California|CA|Orange|33.6566|-117.9699|5
-92616|Irvine|California|CA|Orange|33.6519|-117.8361|5
+92614|Irvine|California|CA|Orange|33.6829|-117.8298
+92615|Huntington Beach|California|CA|Orange|33.6566|-117.9699
+92616|Irvine|California|CA|Orange|33.6519|-117.8361
 92617|Irvine|California|CA|Orange|33.6425|-117.8417
-92618|Irvine|California|CA|Orange|33.7074|-117.7054|5
-92619|Irvine|California|CA|Orange|33.6706|-117.7645|5
-92620|Irvine|California|CA|Orange|33.7009|-117.7564|5
+92618|Irvine|California|CA|Orange|33.7074|-117.7054
+92619|Irvine|California|CA|Orange|33.6706|-117.7645
+92620|Irvine|California|CA|Orange|33.7009|-117.7564
 92621|Brea|California|CA||33.9227|-117.8891
 92622|Brea|California|CA||33.9172|-117.8897
-92623|Irvine|California|CA|Orange|33.6942|-117.8126|5
-92624|Capistrano Beach|California|CA|Orange|33.46|-117.6632|5
+92623|Irvine|California|CA|Orange|33.6942|-117.8126
+92624|Capistrano Beach|California|CA|Orange|33.46|-117.6632
 92625|Corona Del Mar|California|CA|Orange|33.6021|-117.8743
-92626|Costa Mesa|California|CA|Orange|33.6801|-117.9085|5
-92627|Costa Mesa|California|CA|Orange|33.6483|-117.9155|5
-92628|Costa Mesa|California|CA|Orange|33.6401|-117.9159|5
-92629|Dana Point|California|CA|Orange|33.4743|-117.6964|5
-92630|Lake Forest|California|CA|Orange|33.6437|-117.6868|5
+92626|Costa Mesa|California|CA|Orange|33.6801|-117.9085
+92627|Costa Mesa|California|CA|Orange|33.6483|-117.9155
+92628|Costa Mesa|California|CA|Orange|33.6401|-117.9159
+92629|Dana Point|California|CA|Orange|33.4743|-117.6964
+92630|Lake Forest|California|CA|Orange|33.6437|-117.6868
 92631|Brea|California|CA||33.8798|-117.8917
 92632|Fullerton|California|CA||33.8685|-117.9288
 92633|Fullerton|California|CA||33.8734|-117.9615
 92634|Fullerton|California|CA||33.8739|-117.9028
 92635|Fullerton|California|CA||33.9017|-117.9127
-92637|Laguna Hills|California|CA|Orange|33.615|-117.7114|5
+92637|Laguna Hills|California|CA|Orange|33.615|-117.7114
 92640|Fullerton|California|CA||33.7862|-117.9309
 92641|Garden Grove|California|CA||33.787|-117.9782
 92642|Garden Grove|California|CA||33.7777|-117.9498
 92643|Garden Grove|California|CA||33.7629|-117.9303
 92644|Garden Grove|California|CA||33.7652|-117.9695
 92645|Garden Grove|California|CA||33.783|-118.0256
-92646|Huntington Beach|California|CA|Orange|33.6654|-117.9686|5
-92647|Huntington Beach|California|CA|Orange|33.721|-118.0033|5
-92648|Huntington Beach|California|CA|Orange|33.6773|-118.0051|5
-92649|Huntington Beach|California|CA|Orange|33.718|-118.0505|5
-92650|East Irvine|California|CA|Orange|33.6795|-117.7609|5
-92651|Laguna Beach|California|CA|Orange|33.5429|-117.7813|5
-92652|Laguna Beach|California|CA|Orange|33.543|-117.7815|5
-92653|Laguna Hills|California|CA|Orange|33.5916|-117.6985|5
-92654|Laguna Hills|California|CA|Orange|33.6042|-117.7154|5
-92655|Midway City|California|CA|Orange|33.7446|-117.984|5
-92656|Aliso Viejo|California|CA|Orange|33.5701|-117.7086|5
-92657|Newport Coast|California|CA|Orange|33.5943|-117.8334|5
-92658|Newport Beach|California|CA|Orange|33.6422|-117.8631|5
-92659|Newport Beach|California|CA|Orange|33.6222|-117.9235|5
-92660|Newport Beach|California|CA|Orange|33.6295|-117.8684|5
-92661|Newport Beach|California|CA|Orange|33.6045|-117.9021|5
-92662|Newport Beach|California|CA|Orange|33.6062|-117.8931|5
-92663|Newport Beach|California|CA|Orange|33.621|-117.9321|5
+92646|Huntington Beach|California|CA|Orange|33.6654|-117.9686
+92647|Huntington Beach|California|CA|Orange|33.721|-118.0033
+92648|Huntington Beach|California|CA|Orange|33.6773|-118.0051
+92649|Huntington Beach|California|CA|Orange|33.718|-118.0505
+92650|East Irvine|California|CA|Orange|33.6795|-117.7609
+92651|Laguna Beach|California|CA|Orange|33.5429|-117.7813
+92652|Laguna Beach|California|CA|Orange|33.543|-117.7815
+92653|Laguna Hills|California|CA|Orange|33.5916|-117.6985
+92654|Laguna Hills|California|CA|Orange|33.6042|-117.7154
+92655|Midway City|California|CA|Orange|33.7446|-117.984
+92656|Aliso Viejo|California|CA|Orange|33.5701|-117.7086
+92657|Newport Coast|California|CA|Orange|33.5943|-117.8334
+92658|Newport Beach|California|CA|Orange|33.6422|-117.8631
+92659|Newport Beach|California|CA|Orange|33.6222|-117.9235
+92660|Newport Beach|California|CA|Orange|33.6295|-117.8684
+92661|Newport Beach|California|CA|Orange|33.6045|-117.9021
+92662|Newport Beach|California|CA|Orange|33.6062|-117.8931
+92663|Newport Beach|California|CA|Orange|33.621|-117.9321
 92664|Orange|California|CA||33.7875|-117.8934
 92665|Orange|California|CA||33.8298|-117.8469
 92666|Orange|California|CA||33.7853|-117.845
@@ -40170,105 +40170,105 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 92668|Orange|California|CA||33.7867|-117.8742
 92669|Orange|California|CA||33.792|-117.7986
 92670|Placentia|California|CA||33.8808|-117.8582
-92672|San Clemente|California|CA|Orange|33.4361|-117.6231|5
-92673|San Clemente|California|CA|Orange|33.4615|-117.6375|5
-92674|San Clemente|California|CA|Orange|33.4409|-117.6211|5
-92675|San Juan Capistrano|California|CA|Orange|33.5085|-117.6565|5
-92676|Silverado|California|CA|Orange|33.7451|-117.6153|5
-92677|Laguna Niguel|California|CA|Orange|33.5145|-117.7084|5
-92678|Trabuco Canyon|California|CA|Orange|33.6643|-117.5896|5
-92679|Trabuco Canyon|California|CA|Orange|33.6415|-117.5894|5
+92672|San Clemente|California|CA|Orange|33.4361|-117.6231
+92673|San Clemente|California|CA|Orange|33.4615|-117.6375
+92674|San Clemente|California|CA|Orange|33.4409|-117.6211
+92675|San Juan Capistrano|California|CA|Orange|33.5085|-117.6565
+92676|Silverado|California|CA|Orange|33.7451|-117.6153
+92677|Laguna Niguel|California|CA|Orange|33.5145|-117.7084
+92678|Trabuco Canyon|California|CA|Orange|33.6643|-117.5896
+92679|Trabuco Canyon|California|CA|Orange|33.6415|-117.5894
 92680|Tustin|California|CA||33.738|-117.8189
 92681|Tustin|California|CA||33.7456|-117.8213
-92683|Westminster|California|CA|Orange|33.7524|-117.9939|5
-92684|Westminster|California|CA|Orange|33.7627|-118.0072|5
-92685|Westminster|California|CA|Orange|33.7528|-117.9951|5
+92683|Westminster|California|CA|Orange|33.7524|-117.9939
+92684|Westminster|California|CA|Orange|33.7627|-118.0072
+92685|Westminster|California|CA|Orange|33.7528|-117.9951
 92686|Yorba Linda|California|CA||33.8882|-117.8014
 92687|Yorba Linda|California|CA||33.8811|-117.7403
-92688|Rancho Santa Margarita|California|CA|Orange|33.6512|-117.5938|5
-92690|Mission Viejo|California|CA|Orange|33.6117|-117.643|5
-92691|Mission Viejo|California|CA|Orange|33.6128|-117.6622|5
-92692|Mission Viejo|California|CA|Orange|33.6144|-117.6433|5
-92693|San Juan Capistrano|California|CA|Orange|33.4977|-117.6651|5
-92694|Ladera Ranch|California|CA|Orange|33.5472|-117.6238|5
-92697|Irvine|California|CA|Orange|33.6485|-117.8387|5
-92698|Aliso Viejo|California|CA|Orange|33.6686|-117.8386|5
-92701|Santa Ana|California|CA|Orange|33.7523|-117.8541|5
-92702|Santa Ana|California|CA|Orange|33.7365|-117.8714|5
-92703|Santa Ana|California|CA|Orange|33.7489|-117.9072|5
-92704|Santa Ana|California|CA|Orange|33.7249|-117.909|5
-92705|Santa Ana|California|CA|Orange|33.754|-117.7919|5
-92706|Santa Ana|California|CA|Orange|33.7691|-117.8855|5
-92707|Santa Ana|California|CA|Orange|33.7086|-117.8701|5
-92708|Fountain Valley|California|CA|Orange|33.7102|-117.9503|5
-92709|Irvine|California|CA|Orange|33.6813|-117.7319|5
-92710|Irvine|California|CA|Orange|33.7074|-117.8403|5
-92711|Santa Ana|California|CA|Orange|33.7669|-117.8043|5
-92712|Santa Ana|California|CA|Orange|33.7496|-117.875|5
+92688|Rancho Santa Margarita|California|CA|Orange|33.6512|-117.5938
+92690|Mission Viejo|California|CA|Orange|33.6117|-117.643
+92691|Mission Viejo|California|CA|Orange|33.6128|-117.6622
+92692|Mission Viejo|California|CA|Orange|33.6144|-117.6433
+92693|San Juan Capistrano|California|CA|Orange|33.4977|-117.6651
+92694|Ladera Ranch|California|CA|Orange|33.5472|-117.6238
+92697|Irvine|California|CA|Orange|33.6485|-117.8387
+92698|Aliso Viejo|California|CA|Orange|33.6686|-117.8386
+92701|Santa Ana|California|CA|Orange|33.7523|-117.8541
+92702|Santa Ana|California|CA|Orange|33.7365|-117.8714
+92703|Santa Ana|California|CA|Orange|33.7489|-117.9072
+92704|Santa Ana|California|CA|Orange|33.7249|-117.909
+92705|Santa Ana|California|CA|Orange|33.754|-117.7919
+92706|Santa Ana|California|CA|Orange|33.7691|-117.8855
+92707|Santa Ana|California|CA|Orange|33.7086|-117.8701
+92708|Fountain Valley|California|CA|Orange|33.7102|-117.9503
+92709|Irvine|California|CA|Orange|33.6813|-117.7319
+92710|Irvine|California|CA|Orange|33.7074|-117.8403
+92711|Santa Ana|California|CA|Orange|33.7669|-117.8043
+92712|Santa Ana|California|CA|Orange|33.7496|-117.875
 92713|Irvine|California|CA||33.6698|-117.7646
 92714|Irvine|California|CA||33.6881|-117.8017
 92715|Irvine|California|CA||33.6506|-117.8185
 92716|Irvine|California|CA||33.6698|-117.7646
 92717|Irvine|California|CA||33.6462|-117.8398
 92718|Irvine|California|CA||33.6648|-117.7289
-92725|Santa Ana|California|CA||33.7465|-117.8662|5
-92728|Fountain Valley|California|CA|Orange|33.714|-117.9284|5
+92725|Santa Ana|California|CA||33.7465|-117.8662
+92728|Fountain Valley|California|CA|Orange|33.714|-117.9284
 92730|Irvine|California|CA||33.6698|-117.7646
-92735|Santa Ana|California|CA|Orange|33.7188|-117.8546|5
-92780|Tustin|California|CA|Orange|33.7364|-117.8229|5
-92781|Tustin|California|CA|Orange|33.7369|-117.8181|5
-92782|Tustin|California|CA|Orange|33.7346|-117.7869|5
-92799|Santa Ana|California|CA|Orange|33.7205|-117.9098|5
-92801|Anaheim|California|CA|Orange|33.8428|-117.9546|5
-92802|Anaheim|California|CA|Orange|33.8085|-117.9228|5
-92803|Anaheim|California|CA|Orange|33.8397|-117.9388|5
-92804|Anaheim|California|CA|Orange|33.8186|-117.9729|5
-92805|Anaheim|California|CA|Orange|33.8359|-117.9086|5
-92806|Anaheim|California|CA|Orange|33.8356|-117.8681|5
-92807|Anaheim|California|CA|Orange|33.8544|-117.7858|5
-92808|Anaheim|California|CA|Orange|33.8579|-117.7513|5
-92809|Anaheim|California|CA||33.8426|-117.9388|5
-92811|Atwood|California|CA|Orange|33.8674|-117.831|5
-92812|Anaheim|California|CA|Orange|33.817|-117.9286|5
-92814|Anaheim|California|CA|Orange|33.8173|-117.9607|5
-92815|Anaheim|California|CA|Orange|33.8319|-117.9121|5
-92816|Anaheim|California|CA|Orange|33.8401|-117.8867|5
-92817|Anaheim|California|CA|Orange|33.8512|-117.7915|5
-92821|Brea|California|CA|Orange|33.9291|-117.8845|5
-92822|Brea|California|CA|Orange|33.9187|-117.8892|5
-92823|Brea|California|CA|Orange|33.923|-117.798|5
-92825|Anaheim|California|CA|Orange|33.8356|-117.9132|5
-92831|Fullerton|California|CA|Orange|33.8873|-117.8946|5
-92832|Fullerton|California|CA|Orange|33.868|-117.9265|5
-92833|Fullerton|California|CA|Orange|33.8766|-117.9551|5
-92834|Fullerton|California|CA|Orange|33.8768|-117.897|5
-92835|Fullerton|California|CA|Orange|33.8994|-117.9063|5
-92836|Fullerton|California|CA|Orange|33.8755|-117.9038|5
-92837|Fullerton|California|CA|Orange|33.8695|-117.9611|5
-92838|Fullerton|California|CA|Orange|33.8934|-117.931|5
-92840|Garden Grove|California|CA|Orange|33.7869|-117.9273|5
-92841|Garden Grove|California|CA|Orange|33.7817|-117.9766|5
-92842|Garden Grove|California|CA|Orange|33.7783|-117.9456|5
-92843|Garden Grove|California|CA|Orange|33.7671|-117.929|5
-92844|Garden Grove|California|CA|Orange|33.7661|-117.9738|5
-92845|Garden Grove|California|CA|Orange|33.7787|-118.0267|5
-92846|Garden Grove|California|CA|Orange|33.788|-118.0325|5
-92850|Anaheim|California|CA|Orange|33.8442|-117.9555|5
-92856|Orange|California|CA|Orange|33.7841|-117.8435|5
-92857|Orange|California|CA|Orange|33.8317|-117.8491|5
-92859|Orange|California|CA|Orange|33.8027|-117.7867|5
+92735|Santa Ana|California|CA|Orange|33.7188|-117.8546
+92780|Tustin|California|CA|Orange|33.7364|-117.8229
+92781|Tustin|California|CA|Orange|33.7369|-117.8181
+92782|Tustin|California|CA|Orange|33.7346|-117.7869
+92799|Santa Ana|California|CA|Orange|33.7205|-117.9098
+92801|Anaheim|California|CA|Orange|33.8428|-117.9546
+92802|Anaheim|California|CA|Orange|33.8085|-117.9228
+92803|Anaheim|California|CA|Orange|33.8397|-117.9388
+92804|Anaheim|California|CA|Orange|33.8186|-117.9729
+92805|Anaheim|California|CA|Orange|33.8359|-117.9086
+92806|Anaheim|California|CA|Orange|33.8356|-117.8681
+92807|Anaheim|California|CA|Orange|33.8544|-117.7858
+92808|Anaheim|California|CA|Orange|33.8579|-117.7513
+92809|Anaheim|California|CA||33.8426|-117.9388
+92811|Atwood|California|CA|Orange|33.8674|-117.831
+92812|Anaheim|California|CA|Orange|33.817|-117.9286
+92814|Anaheim|California|CA|Orange|33.8173|-117.9607
+92815|Anaheim|California|CA|Orange|33.8319|-117.9121
+92816|Anaheim|California|CA|Orange|33.8401|-117.8867
+92817|Anaheim|California|CA|Orange|33.8512|-117.7915
+92821|Brea|California|CA|Orange|33.9291|-117.8845
+92822|Brea|California|CA|Orange|33.9187|-117.8892
+92823|Brea|California|CA|Orange|33.923|-117.798
+92825|Anaheim|California|CA|Orange|33.8356|-117.9132
+92831|Fullerton|California|CA|Orange|33.8873|-117.8946
+92832|Fullerton|California|CA|Orange|33.868|-117.9265
+92833|Fullerton|California|CA|Orange|33.8766|-117.9551
+92834|Fullerton|California|CA|Orange|33.8768|-117.897
+92835|Fullerton|California|CA|Orange|33.8994|-117.9063
+92836|Fullerton|California|CA|Orange|33.8755|-117.9038
+92837|Fullerton|California|CA|Orange|33.8695|-117.9611
+92838|Fullerton|California|CA|Orange|33.8934|-117.931
+92840|Garden Grove|California|CA|Orange|33.7869|-117.9273
+92841|Garden Grove|California|CA|Orange|33.7817|-117.9766
+92842|Garden Grove|California|CA|Orange|33.7783|-117.9456
+92843|Garden Grove|California|CA|Orange|33.7671|-117.929
+92844|Garden Grove|California|CA|Orange|33.7661|-117.9738
+92845|Garden Grove|California|CA|Orange|33.7787|-118.0267
+92846|Garden Grove|California|CA|Orange|33.788|-118.0325
+92850|Anaheim|California|CA|Orange|33.8442|-117.9555
+92856|Orange|California|CA|Orange|33.7841|-117.8435
+92857|Orange|California|CA|Orange|33.8317|-117.8491
+92859|Orange|California|CA|Orange|33.8027|-117.7867
 92860|Norco|California|CA|Riverside|33.9247|-117.5517
-92861|Villa Park|California|CA|Orange|33.8205|-117.8104|5
-92862|Orange|California|CA|Orange|33.7915|-117.714|5
-92863|Orange|California|CA|Orange|33.8153|-117.8273|5
-92864|Orange|California|CA|Orange|33.8143|-117.8308|5
-92865|Orange|California|CA|Orange|33.8263|-117.8511|5
-92866|Orange|California|CA|Orange|33.7877|-117.8423|5
-92867|Orange|California|CA|Orange|33.811|-117.8493|5
-92868|Orange|California|CA|Orange|33.7875|-117.8776|5
-92869|Orange|California|CA|Orange|33.7868|-117.7934|5
-92870|Placentia|California|CA|Orange|33.8744|-117.8543|5
-92871|Placentia|California|CA|Orange|33.8829|-117.8557|5
+92861|Villa Park|California|CA|Orange|33.8205|-117.8104
+92862|Orange|California|CA|Orange|33.7915|-117.714
+92863|Orange|California|CA|Orange|33.8153|-117.8273
+92864|Orange|California|CA|Orange|33.8143|-117.8308
+92865|Orange|California|CA|Orange|33.8263|-117.8511
+92866|Orange|California|CA|Orange|33.7877|-117.8423
+92867|Orange|California|CA|Orange|33.811|-117.8493
+92868|Orange|California|CA|Orange|33.7875|-117.8776
+92869|Orange|California|CA|Orange|33.7868|-117.7934
+92870|Placentia|California|CA|Orange|33.8744|-117.8543
+92871|Placentia|California|CA|Orange|33.8829|-117.8557
 92877|Corona|California|CA|Riverside|33.7529|-116.0556
 92878|Corona|California|CA|Riverside|33.7529|-116.0556
 92879|Corona|California|CA|Riverside|33.8797|-117.5354
@@ -40276,10 +40276,10 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 92881|Corona|California|CA|Riverside|33.8241|-117.5198
 92882|Corona|California|CA|Riverside|33.8419|-117.6043
 92883|Corona|California|CA|Riverside|33.7541|-117.474
-92885|Yorba Linda|California|CA|Orange|33.8911|-117.8222|5
-92886|Yorba Linda|California|CA|Orange|33.9058|-117.7865|5
-92887|Yorba Linda|California|CA|Orange|33.8841|-117.7304|5
-92899|Anaheim|California|CA|Orange|33.8373|-117.8712|5
+92885|Yorba Linda|California|CA|Orange|33.8911|-117.8222
+92886|Yorba Linda|California|CA|Orange|33.9058|-117.7865
+92887|Yorba Linda|California|CA|Orange|33.8841|-117.7304
+92899|Anaheim|California|CA|Orange|33.8373|-117.8712
 93001|Ventura|California|CA|Ventura|34.3308|-119.3584
 93002|Ventura|California|CA|Ventura|34.0324|-119.1343
 93003|Ventura|California|CA|Ventura|34.2846|-119.2222
@@ -40598,7 +40598,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 93643|North Fork|California|CA|Madera|37.2125|-119.5143
 93644|Oakhurst|California|CA|Madera|37.3476|-119.6449
 93645|O Neals|California|CA|Madera|37.1639|-119.6652
-93646|Orange Cove|California|CA|Fresno|36.6255|-119.3204|5
+93646|Orange Cove|California|CA|Fresno|36.6255|-119.3204
 93647|Orosi|California|CA|Tulare|36.5464|-119.2815
 93648|Parlier|California|CA|Fresno|36.6103|-119.5375
 93649|Piedra|California|CA|Fresno|36.8417|-119.3496
@@ -41017,7 +41017,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 94592|Vallejo|California|CA|Solano|38.0968|-122.2699
 94595|Walnut Creek|California|CA|Contra Costa|37.8753|-122.0703
 94596|Walnut Creek|California|CA|Contra Costa|37.9053|-122.0549
-94597|Walnut Creek|California|CA|Contra Costa|37.9182|-122.0717|6
+94597|Walnut Creek|California|CA|Contra Costa|37.9182|-122.0717
 94598|Walnut Creek|California|CA|Contra Costa|37.9194|-122.0259
 94599|Yountville|California|CA|Napa|38.4161|-122.3616
 94601|Oakland|California|CA|Alameda|37.7806|-122.2166
@@ -41580,7 +41580,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 95659|Nicolaus|California|CA|Sutter|38.8657|-121.557
 95660|North Highlands|California|CA|Sacramento|38.6707|-121.3781
 95661|Roseville|California|CA|Placer|38.7346|-121.234
-95662|Orangevale|California|CA|Sacramento|38.6845|-121.2256|5
+95662|Orangevale|California|CA|Sacramento|38.6845|-121.2256
 95663|Penryn|California|CA|Placer|38.8567|-121.1791
 95664|Pilot Hill|California|CA|El Dorado|38.8135|-121.0308
 95665|Pine Grove|California|CA|Amador|38.4049|-120.6544
@@ -42379,7 +42379,7 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 97468|Remote|Oregon|OR|Coos|43.1388|-124.1271
 97469|Riddle|Oregon|OR|Douglas|42.9389|-123.3612
 97470|Roseburg|Oregon|OR|Douglas|43.2297|-123.2343
-97471|Roseburg|Oregon|OR|Douglas|43.227|-123.5158|5
+97471|Roseburg|Oregon|OR|Douglas|43.227|-123.5158
 97472|Saginaw|Oregon|OR|Lane|43.8638|-122.9988
 97473|Scottsburg|Oregon|OR|Douglas|43.6765|-123.8041
 97476|Sixes|Oregon|OR|Curry|42.825|-124.4409
@@ -43580,5 +43580,4 @@ postal_code|place_name|state|state_abbreviation|county|latitude|longitude
 99927|Point Baker|Alaska|AK|Prince of Wales-Outer|55.5179|-132.0032
 99928|Ward Cove|Alaska|AK|Ketchikan Gateway|55.3954|-131.6754
 99929|Wrangell|Alaska|AK|Wrangell-Petersburg (C|56.4335|-132.3529
-
 99950|Ketchikan|Alaska|AK|Ketchikan Gateway|55.542|-131.4327

@@ -1,4 +1,4 @@
-iata_code|ident|name|longitude_deg|municipality|iso_country|gps_code|latitude_deg|elevation_ft|iso_region|local_code|type|continent
+iata_code|ident|name|longitude_deg|municipality|country_code|gps_code|latitude_deg|elevation_ft|iso_region|local_code|type|continent
 POM|AYPY|Port Moresby Jacksons International Airport|147.2200012|Port Moresby|PG|AYPY|-9.443380356|146|PG-NCD||large_airport|OC
 KEF|BIKF|Keflavik International Airport|-22.60560036|Reykjavík|IS|BIKF|63.98500061|171|IS-2||large_airport|EU
 PRN|BKPR|Priština International Airport|21.03580093|Prishtina|KS|BKPR|42.57279968|1789|KS-U-A||large_airport|EU

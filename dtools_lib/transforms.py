@@ -1,4 +1,5 @@
 import hashlib
+import math
 import random
 import string
 import time
@@ -246,6 +247,47 @@ def Remainder(num1, num2):
     return num1 % num2
 
 
+def Round(num):
+    return round(num)
+
+
+def Floor(num):
+    return math.floor(num)
+
+
+def Ceil(num):
+    return math.ceil(num)
+
+
+def Log(num, base=10):
+    return math.log(num, base)
+
+
+def Pow(num1, num2):
+    return math.pow(num1, num2)
+
+
+def Sqrt(num):
+    return math.sqrt(num)
+
+
+def NearestPowerOfTwo(num):
+    return int(2 ** math.ceil(math.log(num, 2)))
+
+
+# --- Combinatoric functions --- #
+def PowerSet(items):
+    N = len(items)
+    # enumerate the 2**N possible combinations of items
+    for i in range(2 ** N):
+        combo = []
+        for j in range(N):
+            # test jth bit of integer i
+            if (i >> j) % 2 == 1:
+                combo.append(items[j])
+        yield combo
+
+
 # --- Date functions --- #
 def EpochToString(e, fmt='%F %Y %T'):
     return time.strftime(fmt, time.gmtime(e))
@@ -292,13 +334,38 @@ def All(*args):
     return all(args)
 
 
+# -- Geo functions --- #
+def KilometersToMiles(km):
+    return km * 0.621371
+
+
+def MilesToKilometers(miles):
+    return miles * 1.60934
+
+
+def Haversine(lon1, lat1, lon2, lat2):
+    """
+    Calculate the great circle distance in kilometers between two points on the earth (specified in decimal degrees)
+    """
+    r = 6371  # Radius of earth in kilometers. Use 3956 for miles
+
+    # convert decimal degrees to radians
+    lon1, lat1, lon2, lat2 = map(math.radians, (lon1, lat1, lon2, lat2))
+
+    # haversine formula
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+    return 2 * math.asin(math.sqrt(a)) * r
+
+
 # --- Ancillary file functions --- #
 def CreateMap(filename, key, value, sep='|'):
     object_key = '__MAP__:' + '\t'.join([filename, key, value])
     if object_key not in OBJECT_CACHE_:
         m = {}
         with open(filename) as fin:
-            for rec in delimited_record.read_records(fin, sep):
+            for rec in delimited_record.read_records(fin, sep=sep):
                 m[rec[key]] = rec[value]
         OBJECT_CACHE_[object_key] = m
     return object_key
@@ -309,7 +376,7 @@ def CreateList(filename, key=None, sep='|'):
     if object_key not in OBJECT_CACHE_:
         with open(filename) as fin:
             OBJECT_CACHE_[object_key] = [line.rstrip() for line in fin] if key is None else \
-                [rec[key] for rec in delimited_record.read_records(fin, sep)]
+                [rec[key] for rec in delimited_record.read_records(fin, sep=sep)]
     return object_key
 
 
@@ -318,7 +385,7 @@ def CreateMultiMap(filename, key, value, sep='|'):
     if object_key not in OBJECT_CACHE_:
         with open(filename) as fin:
             m = defaultdict(list)
-            for rec in delimited_record.read_records(fin, sep):
+            for rec in delimited_record.read_records(fin, sep=sep):
                 m[rec[key]].append(rec[value])
                 OBJECT_CACHE_[object_key] = m
     return object_key
@@ -351,6 +418,24 @@ def RandomChoice(list_key):
 
 def RandomChoiceLookup(s, multi_map_key, default=None):
     return random.choice(OBJECT_CACHE_[multi_map_key][s]) if s in OBJECT_CACHE_[multi_map_key] else default
+
+
+def RandomChoiceWordsLookup(s, multi_map_key):
+    return ' '.join([RandomChoiceLookup(w, multi_map_key, w) for w in s.split()])
+
+
+def TransposeRandomBytes(s, num_transposes=1):
+    result = list(s)
+    len_s = len(result)
+    if len_s > 1:
+        for _ in range(0, num_transposes):
+            r = random.randint(0, len_s - 2)
+            result[r], result[r + 1] = result[r + 1], result[r]
+    return ''.join(result)
+
+
+def PickOne(a, b, prob=0.5):
+    return a if random.random() <= prob else b
 
 
 # --- Decomposition functions --- #

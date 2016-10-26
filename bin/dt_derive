@@ -95,8 +95,7 @@ def evaluate(expression):
 
 sep = dt_settings.DEFAULT_DELIMITER
 expr = assignments.parseString(sys.argv[1], parseAll=True)
-header = sys.stdin.readline().rstrip().split(sep)
-for rec in delimited_record.read_records(sys.stdin, header, sep):
+for rec in delimited_record.read_records(sys.stdin, sep=sep):
     transforms.RECORD = rec
     transforms.RECORD_COUNT += 1
     evaluate(expr)

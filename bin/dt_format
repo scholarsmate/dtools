@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
+import argparse
+import csv
 import inspect
+import json
 import os
 import sys
 
@@ -14,18 +17,51 @@ if dtlib_path not in sys.path:
 from dtools_lib import delimited_record
 
 
-# TODO: Setup a few different record emitters, like pretty and JSON, etc.
+def csv_print(fileobj, header=None, sep='|'):
+    writer = csv.writer(sys.stdout)
+    if header is not None:
+        writer.writerow(header)
+    for rec in delimited_record.read_delimited(fileobj, sep):
+        writer.writerow(rec)
+
+
+def json_print(fileobj, header=None, sep='|'):
+    if header is None:
+        header = fileobj.readline().rstrip().split(sep)
+    for rec in delimited_record.read_delimited(fileobj, sep):
+        print json.dumps(dict(zip(header, rec)))
+
+
 def pretty_print(fileobj, header=None, sep='|'):
     if header is None:
         header = fileobj.readline().rstrip().split(sep)
     num_fields = len(header)
+    fmt = '{0:<' + str(len(str(sys.maxsize))) + 'd} {1:>' + str(len(str(num_fields))) + 'd}. {2:.<' + str(
+        len(max(header, key=len))) + '}: {3}'
     rec_count = 0
     for rec in delimited_record.read_delimited(fileobj, sep):
         rec_count += 1
-        print '\nRECORD {0}:'.format(rec_count)
+        print '\nRECORD {0:d}:'.format(rec_count)
         for i in range(0, num_fields):
-            print '\t{0}. {1}: {2}'.format(i + 1, header[i], rec[i])
+            print fmt.format(rec_count, i + 1, header[i], rec[i])
 
 
-sep = dt_settings.DEFAULT_DELIMITER
-pretty_print(sys.stdin, sep=sep)
+formats = {
+    'pretty': {'fn': pretty_print, 'help': 'Human readable'},
+    'json': {'fn': json_print, 'help': 'Records as a stream of JSON dicts'},
+    'csv': {'fn': csv_print, 'help': 'Records as CSV'},
+}
+
+parser = argparse.ArgumentParser(description="Validate a file or stream of delimited records")
+parser.add_argument('--fs', nargs='?', default=dt_settings.DEFAULT_DELIMITER,
+                    help="Field separator (default: {0})".format(dt_settings.DEFAULT_DELIMITER))
+parser.add_argument('--format', nargs='?', default='pretty', help="Output format")
+parser.add_argument('infile', nargs='?', type=argparse.FileType('rb'), default=sys.stdin, help="delimited input file")
+
+args = parser.parse_args()
+
+if args.format in formats:
+    formats[args.format]['fn'](args.infile, sep=args.fs)
+else:
+    raise ValueError(
+        "Unknown format given: '{0}' (expected one of: '{1}')".format(args.format, "', '".join(formats.keys())))
