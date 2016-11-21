@@ -28,14 +28,14 @@ with open(sys.argv[1], 'rb') as ref_file:
             rename_map[key] = value
         ref_header = [rename_map[field] if field in rename_map else field for field in ref_header]
     ref_join_key_index = []
-    for i in range(0, len(header)):
-        for j in range(0, len(ref_header)):
+    for i in range(len(header)):
+        for j in range(len(ref_header)):
             if header[i] == ref_header[j]:
                 join_key_index.append(i)
                 ref_join_key_index.append(j)
                 break
     ref_merge_key_index = []
-    for i in range(0, len(ref_header)):
+    for i in range(len(ref_header)):
         if i not in ref_join_key_index:
             ref_merge_key_index.append(i)
             header.append(ref_header[i])

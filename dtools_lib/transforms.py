@@ -5,6 +5,7 @@ import string
 import time
 import unicodedata
 import uuid
+import phonenumbers
 from collections import defaultdict
 
 from dtools_lib import delimited_record
@@ -142,6 +143,14 @@ def SwapChars(s, b1, b2=None):
     t = list(s)
     t[b1], t[b2] = t[b2], t[b1]
     return ''.join(t)
+
+
+def Insert(s, s2, pos=0):
+    if pos == 0:
+        return s2 + s
+    if pos >= len(s):
+        return s + s2
+    return s[:pos] + s2 + s[pos:]
 
 
 def Pattern(s):
@@ -428,7 +437,7 @@ def TransposeRandomBytes(s, num_transposes=1):
     result = list(s)
     len_s = len(result)
     if len_s > 1:
-        for _ in range(0, num_transposes):
+        for _ in range(num_transposes):
             r = random.randint(0, len_s - 2)
             result[r], result[r + 1] = result[r + 1], result[r]
     return ''.join(result)
@@ -479,3 +488,9 @@ DECOMPOSITION_MAP_ = DecompositionMap()
 
 def ToAscii(utf_string):
     return utf_string.decode('utf-8').translate(DECOMPOSITION_MAP_).encode('ascii', 'ignore')
+
+
+# --- Standardization functions --- #
+def StandardizePhone(s, region=None, phone_format=phonenumbers.PhoneNumberFormat.E164):
+    return phonenumbers.format_number(phonenumbers.parse(s, region=region), phone_format)
+

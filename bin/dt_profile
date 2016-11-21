@@ -34,7 +34,7 @@ class ColumnarTable(object):
     def add_row(self, row):
         if len(row) != self.numcols_:
             raise ValueError('number of columns in the given row does not match the number of columns in this table')
-        for col in range(0, self.numcols_):
+        for col in range(self.numcols_):
             self.ctable_[self.header_[col]].append(row[col])
 
     def get_header(self):

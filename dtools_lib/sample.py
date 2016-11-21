@@ -6,7 +6,7 @@ class Sample(object):
         if seed is not None:
             random.seed(seed)
         self.period_ = period
-        self.shuffled_ = [i for i in range(0, period)]
+        self.shuffled_ = list(range(period))
         self.threshold_ = int(period * percent)
         self.index_ = 0
         random.shuffle(self.shuffled_)

@@ -97,7 +97,7 @@ def generate_trips(trips_per_record, domestic_country, airline_choices, airport_
                 rec[prefix + 'family_member_count'] = str(num_travel_companions)
                 rec[prefix + 'business_trip'] = 'yes' if random.randint(0, 8 + num_travel_companions) < 5 else 'no'
                 rec[prefix + 'countries_visited_count'] = str(len(countries_visited))
-                rec[prefix + 'countries_visited'] = ", ".join(countries_visited)
+                rec[prefix + 'countries_visited'] = ','.join(countries_visited)
                 rec[prefix + 'carrying_over_10k_usd'] = 'yes' if random.random() <= 0.005 else 'no'
                 rec[prefix + 'commercial_merchandise'] = 'yes' if random.random() <= 0.01 else 'no'
 

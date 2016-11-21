@@ -42,7 +42,7 @@ def pretty_print(fileobj, header=None, sep='|'):
     for rec in delimited_record.read_delimited(fileobj, sep):
         rec_count += 1
         print '\nRECORD {0:d}:'.format(rec_count)
-        for i in range(0, num_fields):
+        for i in range(num_fields):
             print fmt.format(rec_count, i + 1, header[i], rec[i])
 
 
