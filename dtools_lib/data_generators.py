@@ -101,7 +101,7 @@ class BiometricProvider(object):
         ('black', 64), ('brown', 16), ('blond', 5), ('red', 2), ('gray', 4),
     ]
     DEFAULT_WEIGHTED_BLOOD_TYPES = [
-        ('A+', 34), ('A-', 6), ('B+', 9), ('B-', 2), ('AB+', 3), ('AB-', 1), ('0+', 38), ('O-', 7),
+        ('A+', 34), ('A-', 6), ('B+', 9), ('B-', 2), ('AB+', 3), ('AB-', 1), ('O+', 38), ('O-', 7),
     ]
 
     def __init__(self, weighted_eye_colors=DEFAULT_WEIGHTED_EYE_COLORS,
