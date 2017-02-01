@@ -157,7 +157,8 @@ class PersonNameProvider(BasePersonNameProvider):
 class PersonDetailsProvider(BaseProvider):
     def generate(self, prefix=''):
         return LazyDictionary({
-            prefix + 'email': lambda: self.generator.free_email(),
+            prefix + 'free_email': lambda: self.generator.free_email(),
+            prefix + 'email': lambda: self.generator.email(),
             prefix + 'birth_date': lambda: self.generator.date(),
             prefix + 'citizenship': lambda: self.generator.country_code(),
             prefix + 'passport_number': lambda: self.generator.numerify(text='#########'),

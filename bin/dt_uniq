@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+
+import inspect
+import os
+import sys
+
+import dt_settings
+
+dtlib_path = os.path.realpath(
+    os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), dt_settings.DTOOLS_LIB_RELATIVE_PATH))
+if dtlib_path not in sys.path:
+    sys.path.insert(0, dtlib_path)
+
+from dtools_lib import delimited_record
+
+sep = dt_settings.DEFAULT_DELIMITER
+unique_fields = sys.argv[1].split(',')
+header = sys.stdin.readline().rstrip().split(sep)
+print sep.join(header)
+seen = set()
+for rec in delimited_record.read_records(sys.stdin, header, sep):
+    key = sep.join([rec[col] for col in unique_fields])
+    if key in seen:
+        continue
+    seen.add(key)
+    print sep.join(rec.values())
+
