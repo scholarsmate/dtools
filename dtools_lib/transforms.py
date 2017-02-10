@@ -5,8 +5,10 @@ import string
 import time
 import unicodedata
 import uuid
-import phonenumbers
 from collections import defaultdict
+
+import phonenumbers
+from faker import Factory
 
 from dtools_lib import delimited_record
 
@@ -494,3 +496,32 @@ def ToAscii(utf_string):
 def StandardizePhone(s, region=None, phone_format=phonenumbers.PhoneNumberFormat.E164):
     return phonenumbers.format_number(phonenumbers.parse(s, region=region), phone_format)
 
+
+# --- Generator functions --- #
+def CreateGeneratorFactory(seed=None, locale='en_US'):
+    object_key = '__DATA_GENERATOR__:' + '\t'.join([locale, str(seed)])
+    if object_key not in OBJECT_CACHE_:
+        gen = Factory.create(locale)
+        gen.seed(seed)
+        OBJECT_CACHE_[object_key] = gen
+    return object_key
+
+
+def GenerateCompany(object_key):
+    return OBJECT_CACHE_[object_key].company()
+
+
+def GenerateEmail(object_key):
+    return OBJECT_CACHE_[object_key].email()
+
+
+def GeneratePhoneNumber(object_key):
+    return OBJECT_CACHE_[object_key].phone_number()
+
+
+def GenerateURL(object_key):
+    return OBJECT_CACHE_[object_key].url()
+
+
+def GenerateJob(object_key):
+    return OBJECT_CACHE_[object_key].job()
