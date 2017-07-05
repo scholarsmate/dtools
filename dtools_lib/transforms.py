@@ -525,3 +525,10 @@ def GenerateURL(object_key):
 
 def GenerateJob(object_key):
     return OBJECT_CACHE_[object_key].job()
+
+
+def GenerateDate(object_key):
+    return OBJECT_CACHE_[object_key].date()
+
+def GenerateDateBetween(object_key, start_date='-30y', end_date='now', format='%Y-%m-%d', tzinfo=None):
+    return OBJECT_CACHE_[object_key].date_time_between(start_date, end_date, tzinfo).strftime(format)
