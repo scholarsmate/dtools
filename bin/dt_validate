@@ -21,6 +21,8 @@ parser.add_argument('--fs', nargs='?', default=dt_settings.DEFAULT_DELIMITER,
 parser.add_argument('--check', action='store_true', help="Only perform the validation check, do not emit valid records")
 parser.add_argument('--verbose', action='store_const', dest='log_level', const=logging.INFO, default=logging.WARNING,
                     help="Be more verbose")
+parser.add_argument('--debugfile', type=argparse.FileType('wb'), default=None,
+                    help="Write invalid records to this file")
 parser.add_argument('infile', nargs='?', type=argparse.FileType('rb'), default=sys.stdin, help="delimited input file")
 
 args = parser.parse_args()
@@ -29,11 +31,18 @@ dt_settings.logger.setLevel(args.log_level)
 header = args.infile.readline().rstrip().split(args.fs)
 num_fields = len(header)
 good_recs, bad_recs = 0, 0
+
 if not args.check:
     print args.fs.join(header)
+
+if args.debugfile:
+    args.debugfile.write(args.fs.join(header) + '\n')
+
 for rec in delimited_record.read_delimited(args.infile, args.fs):
     if len(rec) != num_fields:
         bad_recs += 1
+        if args.debugfile:
+            args.debugfile.write(args.fs.join(rec) + '\n')
         dt_settings.logger.info(
             "Record %d (%d fields expected, actual %d):\n%s\n%s", bad_recs + good_recs, num_fields, len(rec),
             args.fs.join(header), args.fs.join(rec))
@@ -44,6 +53,9 @@ for rec in delimited_record.read_delimited(args.infile, args.fs):
 
 if args.check:
     print "Valid:{0:d},Invalid:{1:d}".format(good_recs, bad_recs)
+
+if args.debugfile:
+    args.debugfile.close()
 
 if bad_recs > 0:
     exit(1)

@@ -14,7 +14,6 @@ if dtlib_path not in sys.path:
 from dtools_lib import delimited_record
 
 sep = dt_settings.DEFAULT_DELIMITER
-desired_fields = sys.argv[1].split(',')
-print sep.join(desired_fields)
+splitter_fields = sys.argv[1].split(',')
 for fields in delimited_record.cut_fields(sys.stdin, desired_fields, sep=sep):
     print sep.join(fields)

@@ -115,7 +115,7 @@ def PunctWhite(s):
     return s.translate(string.maketrans(string.punctuation, ' ' * len(string.punctuation)))
 
 
-def Replace(s, old, new, max=None):
+def Replace(s, old, new, max=-1):
     return s.replace(old, new, max)
 
 

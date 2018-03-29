@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+
+import argparse
+import csv
+import errno
+import inspect
+import os
+import sys
+
+import dt_settings
+
+dtlib_path = os.path.realpath(
+    os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), dt_settings.DTOOLS_LIB_RELATIVE_PATH))
+if dtlib_path not in sys.path:
+    sys.path.insert(0, dtlib_path)
+
+from dtools_lib import delimited_record
+
+
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+
+
+parser = argparse.ArgumentParser(description="Split a stream of delimited records")
+parser.add_argument('--fs', nargs='?', default=dt_settings.DEFAULT_DELIMITER,
+                    help="Field separator (default: {0})".format(dt_settings.DEFAULT_DELIMITER))
+parser.add_argument('--format', nargs='?', default='csv', help="Output format (default: csv)")
+parser.add_argument('--prefix', nargs='?', default='.' + os.sep, help="Output file prefix (default: ." + os.sep + ")")
+parser.add_argument('splitter_fields', help="comma -separated fields to split on")
+parser.add_argument('infile', nargs='?', type=argparse.FileType('rb'), default=sys.stdin, help="delimited input file")
+
+args = parser.parse_args()
+
+header = sys.stdin.readline().rstrip().split(args.fs)
+
+if not set(args.splitter_fields.split(',')).issubset(set(header)):
+    print >> sys.stderr, 'Not all fields in ' + args.splitter_fields + 'are in the input records'
+    exit(1)
+
+keys = {}
+if args.format == 'csv':
+    suffix = '.csv'
+    split_fmt = args.prefix + os.sep.join(['{' + f + '}' for f in args.splitter_fields.split(',')]) + suffix
+    for rec in delimited_record.read_records(args.infile, header, args.fs):
+        # We have to be very careful about using values as directory and file names
+        split_key = split_fmt.format(**rec)
+        if split_key not in keys:
+            mkdir_p(os.path.dirname(split_key))
+            keys[split_key] = csv.writer(open(split_key, 'w'))
+            keys[split_key].writerow(header)
+        keys[split_key].writerow(rec.values())
+else:
+    print >> sys.stderr, 'Output format ' + args.format + ' not currently supported'

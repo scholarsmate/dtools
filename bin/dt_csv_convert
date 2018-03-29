@@ -1,17 +1,21 @@
 #!/usr/bin/env python
 
+import argparse
 import csv
 import sys
 
 import dt_settings
 
-from_delimiter = ','
-to_delimiter = dt_settings.DEFAULT_DELIMITER
+parser = argparse.ArgumentParser(description="Convert a CSV file or stream into a delimited text stream")
+parser.add_argument('--ifs', nargs='?', default=',', help="Input field separator (default: ,)")
+parser.add_argument('--ofs', nargs='?', default=dt_settings.DEFAULT_DELIMITER,
+                    help="Output field separator (default: {0})".format(dt_settings.DEFAULT_DELIMITER))
+parser.add_argument('--removeindex', type=lambda x: set([int(y) for y in x.split(',')]), default=set(),
+                    help="Comma-separated list of columns to remove by index")
+parser.add_argument('infile', nargs='?', type=argparse.FileType('rb'), default=sys.stdin, help="CSV input file")
 
-if len(sys.argv) > 1:
-    from_delimiter = sys.argv[1]
-    if len(sys.argv) > 2:
-        to_delimiter = sys.argv[2]
+args = parser.parse_args()
 
-for row in csv.reader(sys.stdin, delimiter=from_delimiter):
-    print to_delimiter.join(row)
+for row in csv.reader(sys.stdin, delimiter=args.ifs):
+    row = [row[i] for i in range(len(row)) if i not in args.removeindex]
+    print args.ofs.join([col.replace('\n', '\\n') for col in row])
