@@ -10,6 +10,6 @@ logger.setLevel(logging.INFO)
 
 # --- settings --- #
 DTOOLS_LIB_RELATIVE_PATH = '..'
-DEFAULT_DELIMITER = '|'
+DEFAULT_DELIMITER = '~'
 DEFAULT_LOCALE = 'en_US'
 DEFAULT_DOMESTIC_COUNTRY_CODE = 'US'
