@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import inspect
 import os
 import sys
@@ -13,45 +14,61 @@ if dtlib_path not in sys.path:
 
 from dtools_lib import delimited_record
 
-sep = dt_settings.DEFAULT_DELIMITER
+parser = argparse.ArgumentParser(description="Join records from a file to a stream of records")
+parser.add_argument('--fs', nargs='?', default=dt_settings.DEFAULT_DELIMITER,
+                    help="Field separator (default: {0})".format(dt_settings.DEFAULT_DELIMITER))
+parser.add_argument('referencefile', type=argparse.FileType('rb'),
+                    help='delimited reference file to join to the stream')
+parser.add_argument('joinkey',
+                    help='comma-separated to join by, file and stream fields are given as colon-separated pairs')
+
+args = parser.parse_args()
+
+sep = args.fs
 
 header = sys.stdin.readline().rstrip().split(sep)
+numfields_streaming = len(header)
 lookup = {}
 join_key_index = []
 
-with open(sys.argv[1], 'rb') as ref_file:
-    ref_header = ref_file.readline().rstrip().split(sep)
-    if len(sys.argv) > 2:
-        rename_map = {}
-        for item in sys.argv[2].split(','):
-            key, value = item.split(':', 1)
-            rename_map[key] = value
-        ref_header = [rename_map[field] if field in rename_map else field for field in ref_header]
-    ref_join_key_index = []
-    for i in range(len(header)):
-        for j in range(len(ref_header)):
-            if header[i] == ref_header[j]:
-                join_key_index.append(i)
-                ref_join_key_index.append(j)
-                break
-    ref_merge_key_index = []
-    for i in range(len(ref_header)):
-        if i not in ref_join_key_index:
-            ref_merge_key_index.append(i)
-            header.append(ref_header[i])
-    for rec in delimited_record.read_delimited(ref_file, sep):
+ref_header = args.referencefile.readline().rstrip().split(sep)
+# Rename ref keys to match streaming keys
+rename_map = {}
+for item in args.joinkey.split(','):
+    key, value = item.split(':', 1)
+    rename_map[key] = value
+ref_header = [rename_map[field] if field in rename_map else field for field in ref_header]
+numfields_ref = len(ref_header)
+# Determine the positions where the matches take place
+ref_join_key_index = []
+for i in range(numfields_streaming):
+    for j in range(numfields_ref):
+        if header[i] == ref_header[j]:
+            join_key_index.append(i)
+            ref_join_key_index.append(j)
+            break
+# Determine the fields that will be merged with the matched records
+ref_merge_key_index = []
+for i in range(numfields_ref):
+    if i not in ref_join_key_index:
+        ref_merge_key_index.append(i)
+        header.append(ref_header[i])
+# Build the lookup table, with the key as the join values and the value as the rest of the record
+for rec in delimited_record.read_delimited(args.referencefile, sep):
+    if len(rec) == numfields_ref:
         lookup[sep.join([rec[i] for i in ref_join_key_index])] = sep.join([rec[i] for i in ref_merge_key_index])
 
 record_count = 0
 joined_count = 0
 print sep.join(header)
 for rec in delimited_record.read_delimited(sys.stdin, sep):
-    record_count += 1
-    join_key = sep.join([rec[i] for i in join_key_index])
-    if join_key in lookup:
-        joined_count += 1
-        rec.append(lookup[join_key])
-        print sep.join(rec)
-    else:
-        dt_settings.logger.debug('Record %d did not join:\n%s', record_count, sep.join(rec))
+    if len(rec) == numfields_streaming:
+        record_count += 1
+        join_key = sep.join([rec[i] for i in join_key_index])
+        if join_key in lookup:
+            joined_count += 1
+            rec.append(lookup[join_key])
+            print sep.join(rec)
+        else:
+            dt_settings.logger.debug('Record %d did not join:\n%s', record_count, sep.join(rec))
 dt_settings.logger.info('Records:%d,Joined:%d', record_count, joined_count)
