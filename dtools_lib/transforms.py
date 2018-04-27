@@ -119,6 +119,14 @@ def Replace(s, old, new, max=-1):
     return s.replace(old, new, max)
 
 
+def RemovePunct(s):
+    return s.translate(None, string.punctuation)
+
+
+def RemoveWhite(s):
+    return s.translate(None, string.whitespace)
+
+
 def TitleCase(s):
     return s.title()
 
@@ -286,6 +294,20 @@ def NearestPowerOfTwo(num):
     return int(2 ** math.ceil(math.log(num, 2)))
 
 
+# --- Checksum functions --- #
+def LuhnChecksum(num):
+    def digits_of(n):
+        return [int(d) for d in str(n)]
+    digits = digits_of(num)
+    odd_digits = digits[-1::-2]
+    even_digits = digits[-2::-2]
+    checksum = 0
+    checksum += sum(odd_digits)
+    for d in even_digits:
+        checksum += sum(digits_of(d*2))
+    return checksum % 10
+
+
 # --- Combinatoric functions --- #
 def PowerSet(items):
     N = len(items)
@@ -343,6 +365,10 @@ def Any(*args):
 
 def All(*args):
     return all(args)
+
+
+def IsValidLuhn(num):
+    return Equals(LuhnChecksum(num), 0)
 
 
 # -- Geo functions --- #
