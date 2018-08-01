@@ -127,6 +127,10 @@ def RemoveWhite(s):
     return s.translate(None, string.whitespace)
 
 
+def RemoveVowels(s):
+    return s.translate(None, 'aeiouAEIOU')
+
+
 def TitleCase(s):
     return s.title()
 
