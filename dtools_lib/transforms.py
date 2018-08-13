@@ -3,6 +3,7 @@ import math
 import random
 import string
 import time
+import datetime
 import unicodedata
 import uuid
 from collections import defaultdict
@@ -336,6 +337,11 @@ def StringToEpoch(s, fmt):
 
 def EpochTime():
     return int(time.time())
+
+
+def DayDelta(s, num, fmt='%Y-%m-%d'):
+    return (datetime.datetime.fromtimestamp(time.mktime(time.strptime(s, fmt))) +
+            datetime.timedelta(days=num)).strftime(fmt)
 
 
 # --- Boolean Functions --- #
