@@ -75,7 +75,13 @@ with open(config.get('Generator', 'airport_codes', 'airport_codes.csv')) as f:
 with open(config.get('Generator', 'cities', 'cities_of_the_world.csv')) as f:
     city_provider = data_generators.CsvProvider(generator, f, prefix='birth_')
 
-gender_provider = data_generators.GenderProvider()
+gender_probs = data_generators.GenderProvider.DEFAULT_WEIGHTED_GENDERS
+if config.has_option('Generator', 'gender_weight_female'):
+    gender_probs[0] = ('F', config.getint('Generator', 'gender_weight_female'))
+if config.has_option('Generator', 'gender_weight_male'):
+    gender_probs[1] = ('M', config.getint('Generator', 'gender_weight_male'))
+
+gender_provider = data_generators.GenderProvider(gender_probs)
 biometric_provider = data_generators.BiometricProvider()
 name_provider = data_generators.PersonNameProvider(generator)
 person_provider = data_generators.PersonDetailsProvider(generator)
