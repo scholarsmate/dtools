@@ -455,8 +455,9 @@ def Uuid():
 
 
 def Shuffle(s):
-    random.shuffle(s)
-    return s
+    result = list(s)
+    random.shuffle(result)
+    return ''.join(result)
 
 
 def RandomChoice(list_key):
