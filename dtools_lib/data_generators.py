@@ -53,7 +53,7 @@ class ItineraryProvider(CsvProvider):
                 leg_data = CsvProvider.generate(self)
         ld.update({
             prefix + 'airport': leg_data['iata_code'],
-            prefix + 'country': leg_data['iso_country'],
+            prefix + 'country': leg_data['country_code'],
             prefix + 'region': leg_data['iso_region'],
             prefix + 'municipality': leg_data['municipality'],
             prefix + 'carrier': lambda: self.random_element(ItineraryProvider.CARRIERS),
@@ -130,19 +130,26 @@ class BiometricProvider(object):
 
 
 class PersonNameProvider(BasePersonNameProvider):
+    female_populated_title_probability = -0.1
+    female_populated_middle_probability = 0.4
+    female_populated_suffix_probability = -0.05
+    male_populated_title_probability = -0.1
+    male_populated_middle_probability = 0.4
+    male_populated_suffix_probability = -0.05
+
     def generate(self, gender, prefix=''):
         if gender == 'F':
-            title = self.prefix_female() if random.random() <= 0.1 else ''
+            title = self.prefix_female() if random.random() <= self.female_populated_title_probability else ''
             given = self.first_name_female()
-            middle = self.first_name_female() if random.random() <= 0.4 else ''
+            middle = self.first_name_female() if random.random() <= self.female_populated_middle_probability else ''
             surname = self.last_name_female()
-            suffix = self.suffix_female() if random.random() <= 0.05 else ''
+            suffix = self.suffix_female() if random.random() <= self.female_populated_suffix_probability else ''
         else:
-            title = self.prefix_male() if random.random() <= 0.1 else ''
+            title = self.prefix_male() if random.random() <= self.male_populated_title_probability else ''
             given = self.first_name_male()
-            middle = self.first_name_male() if random.random() <= 0.4 else ''
+            middle = self.first_name_male() if random.random() <= self.male_populated_middle_probability else ''
             surname = self.last_name_male()
-            suffix = self.suffix_male() if random.random() <= 0.05 else ''
+            suffix = self.suffix_male() if random.random() <= self.male_populated_suffix_probability else ''
 
         return {
             prefix + 'name': ' '.join([x for x in (title, given, middle, surname, suffix) if len(x) > 0]),
