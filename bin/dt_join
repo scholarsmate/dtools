@@ -60,7 +60,7 @@ for rec in delimited_record.read_delimited(args.referencefile, sep):
 
 record_count = 0
 joined_count = 0
-print sep.join(header)
+print(sep.join(header))
 for rec in delimited_record.read_delimited(sys.stdin, sep):
     if len(rec) == numfields_streaming:
         record_count += 1
@@ -68,7 +68,7 @@ for rec in delimited_record.read_delimited(sys.stdin, sep):
         if join_key in lookup:
             joined_count += 1
             rec.append(lookup[join_key])
-            print sep.join(rec)
+            print(sep.join(rec))
         else:
             dt_settings.logger.debug('Record %d did not join:\n%s', record_count, sep.join(rec))
 dt_settings.logger.info('Records:%d,Joined:%d', record_count, joined_count)

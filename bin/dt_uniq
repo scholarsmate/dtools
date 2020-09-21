@@ -16,12 +16,11 @@ from dtools_lib import delimited_record
 sep = dt_settings.DEFAULT_DELIMITER
 unique_fields = sys.argv[1].split(',')
 header = sys.stdin.readline().rstrip().split(sep)
-print sep.join(header)
+print(sep.join(header))
 seen = set()
 for rec in delimited_record.read_records(sys.stdin, header, sep):
     key = sep.join([rec[col] for col in unique_fields])
     if key in seen:
         continue
     seen.add(key)
-    print sep.join(rec.values())
-
+    print(sep.join(rec.values()))

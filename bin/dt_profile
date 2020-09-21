@@ -78,14 +78,17 @@ def populate_columnar_table(fileobj, sep='|', header=None):
 def profile(table, limit=100):
     for col in table.get_header():
         profile = table.profile_column(col)
-        print '*' * 79
-        print "column name: {0:s}\nminimum length: {1:d} [{2:s}]\n" \
-              "maximum length: {3:d} [{4:s}]\n" \
-              "count: {5:d}, distinct values: {6:d}, distinct patterns: {7:d}".format(
-            col, profile.minimum_length, profile.minimum_length_exemplar, profile.maximum_length,
-            profile.maximum_length_exemplar, sum(profile.value_histogram.values()), len(profile.value_histogram),
-            len(profile.pattern_histogram))
-        print '=' * 79
+        print('*' * 79)
+        try:
+            print("column name: {0:s}\nminimum length: {1:d} [{2:s}]\n" \
+                "maximum length: {3:d} [{4:s}]\n" \
+                "count: {5:d}, distinct values: {6:d}, distinct patterns: {7:d}".format(
+                col, profile.minimum_length, profile.minimum_length_exemplar, profile.maximum_length,
+                profile.maximum_length_exemplar, sum(profile.value_histogram.values()), len(profile.value_histogram),
+                len(profile.pattern_histogram)))
+        except TypeError:
+            print("column name: " + col + "\nEMPTY")
+        print('=' * 79)
         l = 0
         p = profile.value_histogram
         for i in sorted(p.items(), key=operator.itemgetter(1), reverse=True):
@@ -95,8 +98,8 @@ def profile(table, limit=100):
             if l == limit:
                 sys.stdout.write('...')
                 break
-        print
-        print '=' * 79
+        print()
+        print('=' * 79)
         l = 0
         p = profile.pattern_histogram
         for i in sorted(p.items(), key=operator.itemgetter(1), reverse=True):
@@ -106,7 +109,7 @@ def profile(table, limit=100):
             if l == limit:
                 sys.stdout.write('...')
                 break
-        print
+        print()
 
 
 table = None

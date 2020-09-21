@@ -33,7 +33,7 @@ num_fields = len(header)
 good_recs, bad_recs = 0, 0
 
 if not args.check:
-    print args.fs.join(header)
+    print(args.fs.join(header))
 
 if args.debugfile:
     args.debugfile.write(args.fs.join(header) + '\n')
@@ -49,10 +49,10 @@ for rec in delimited_record.read_delimited(args.infile, args.fs):
     else:
         good_recs += 1
         if not args.check:
-            print args.fs.join(rec)
+            print(args.fs.join(rec))
 
 if args.check:
-    print "Valid:{0:d},Invalid:{1:d}".format(good_recs, bad_recs)
+    print("Valid:{0:d},Invalid:{1:d}".format(good_recs, bad_recs))
 
 if args.debugfile:
     args.debugfile.close()

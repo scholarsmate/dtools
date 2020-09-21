@@ -129,8 +129,8 @@ def generate_trips(trips_per_record, domestic_country, airline_choices, airport_
             rec[prefix + 'trip_number'] = str(trip_no + 1)
             if cols is None:
                 cols = rec.keys()
-                print sep.join(cols)
-            print sep.join(rec.values())
+                print(sep.join(cols))
+            print(sep.join(rec.values()))
 
 
 parser = argparse.ArgumentParser(description="Generate customs declarations fields from passport data")

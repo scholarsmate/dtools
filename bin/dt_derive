@@ -67,7 +67,7 @@ class FunctionCall(ASTNode):
             if isinstance(arg, FunctionCall):
                 # depth-first traversal of the AST for functions
                 arg = arg()
-            if isinstance(arg, basestring):
+            if isinstance(arg, str):
                 # prepare string for evaluation
                 arg = '"""{0}"""'.format(arg)
             else:
@@ -100,5 +100,5 @@ for rec in delimited_record.read_records(sys.stdin, sep=sep):
     transforms.RECORD_COUNT += 1
     evaluate(expr)
     if transforms.RECORD_COUNT == 1:
-        print sep.join(transforms.RECORD.keys())
-    print sep.join([str(r) for r in transforms.RECORD.values()])
+        print(sep.join(transforms.RECORD.keys()))
+    print(sep.join([str(r) for r in transforms.RECORD.values()]))

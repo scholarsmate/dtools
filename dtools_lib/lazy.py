@@ -176,7 +176,7 @@ if __name__ == '__main__':
 
 
     def expensive_function():
-        print 'Expensive function ...'
+        print('Expensive function ...')
         time.sleep(2)
         return range(10)
 
@@ -188,13 +188,13 @@ if __name__ == '__main__':
 
         @lazy_property
         def a(self):
-            print 'Calculating a ...'
+            print('Calculating a ...')
             return expensive_function()
 
 
     t = Test()
     for i in range(5):
-        print t.a
+        print(t.a)
 
     d = LazyDictionary({'a': 1, 'b': lambda: expensive_function()})
     d.update({'e': lambda: expensive_function()})
@@ -205,6 +205,6 @@ if __name__ == '__main__':
     # d2.update(d)
 
     t = Template('a=$a, c=$c, d=$d, g=$g')
-    print populate_template(t, d)
+    print(populate_template(t, d))
     for i in range(5):
-        print d['b']
+        print(d['b'])

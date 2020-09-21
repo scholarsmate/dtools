@@ -47,7 +47,7 @@ keys = {}
 if args.format == 'csv':
     suffix = '.csv'
     split_fmt = args.prefix + os.sep.join(['{' + f + '}' for f in args.splitter_fields.split(',')]) + suffix
-    print args.fs.join(header)
+    print(args.fs.join(header))
     for rec in delimited_record.read_records(args.infile, header, args.fs):
         # We have to be very careful about using values as directory and file names
         split_key = split_fmt.format(**rec)
@@ -56,6 +56,6 @@ if args.format == 'csv':
             keys[split_key] = csv.writer(open(split_key, 'w'))
             keys[split_key].writerow(header)
         keys[split_key].writerow(rec.values())
-        print args.fs.join(rec.values())
+        print(args.fs.join(rec.values()))
 else:
     print >> sys.stderr, 'Output format ' + args.format + ' not currently supported'

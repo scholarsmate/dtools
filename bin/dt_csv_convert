@@ -18,4 +18,4 @@ args = parser.parse_args()
 
 for row in csv.reader(sys.stdin, delimiter=args.ifs):
     row = [row[i] for i in range(len(row)) if i not in args.removeindex]
-    print args.ofs.join([col.replace('\n', '\\n') for col in row])
+    print(args.ofs.join([col.replace('\n', '\\n') for col in row]))

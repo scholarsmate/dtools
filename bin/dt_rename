@@ -20,6 +20,6 @@ for item in sys.argv[1].split(','):
     rename_map[key] = value
 
 header = [rename_map[field] if field in rename_map else field for field in sys.stdin.readline().rstrip().split(sep)]
-print sep.join(header)
+print(sep.join(header))
 for rec in delimited_record.read_records(sys.stdin, header, sep):
-    print sep.join(rec.values())
+    print(sep.join(rec.values()))

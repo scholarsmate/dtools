@@ -88,7 +88,7 @@ person_provider = data_generators.PersonDetailsProvider(generator)
 sequence_provider = data_generators.SequenceProvider()
 
 if config.has_option('Record', 'header'):
-    print config.get('Record', 'header')
+    print(config.get('Record', 'header'))
 
 for _ in range(num_records):
     tmpl = record_template
@@ -112,7 +112,7 @@ for _ in range(num_records):
                     if random.random() > 0.05:
                         d2['citizenship'] = d1['birth_country_code']
                     tmpl = populate_template(tmpl, d2)
-            print tmpl
+            print(tmpl)
         except UnicodeDecodeError:
             continue
         break

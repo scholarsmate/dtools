@@ -18,7 +18,7 @@ groupBy = sys.argv[3] if len(sys.argv) > 3 else None
 sep = dt_settings.DEFAULT_DELIMITER
 sampler = sample.Sample(percent=float(sys.argv[1]), seed=seed)
 header = sys.stdin.readline().rstrip().split(sep)
-print sep.join(header)
+print(sep.join(header))
 if groupBy:
     currentGroupVal = None
     doSample = True
@@ -27,9 +27,9 @@ if groupBy:
             currentGroupVal = rec[groupBy]
             doSample = True
         if doSample and sampler.is_selected():
-            print sep.join(rec.values())
+            print(sep.join(rec.values()))
             doSample = False
 else:
     for rec in delimited_record.read_delimited(sys.stdin, sep):
         if sampler.is_selected():
-            print sep.join(rec)
+            print(sep.join(rec))

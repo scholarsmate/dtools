@@ -13,11 +13,11 @@ for f in sys.argv[1:]:
         raise ValueError("Header in {} is not the same as previous files".format(f))
     files.append(fileobj)
 
-print header
+print(header)
 while len(files) > 0:
     for i in range(len(files)):
         try:
-            print files[i].next().rstrip()
+            print(files[i].next().rstrip())
         except StopIteration:
             files[i] = None
     files = [f for f in files if f is not None]
