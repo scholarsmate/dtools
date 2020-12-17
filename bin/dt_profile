@@ -4,6 +4,8 @@ import inspect
 import operator
 import os
 import sys
+import json
+from hashlib import sha256
 
 import dt_settings
 
@@ -15,6 +17,13 @@ if dtlib_path not in sys.path:
 from dtools_lib import transforms
 
 
+def _histogram_hash(histogram):
+    _hash = sha256()
+    for i in sorted(histogram.items(), key=operator.itemgetter(1), reverse=True):
+        _hash.update(f"{i[0]}:{i[1]},".encode("utf-8"))
+    return _hash.hexdigest()
+
+
 class ColumnarTable(object):
     class Profile(object):
         value_histogram = None
@@ -23,6 +32,22 @@ class ColumnarTable(object):
         maximum_length = 0
         minimum_length_exemplar = None
         maximum_length_exemplar = None
+
+        @property
+        def num_values(self):
+            return sum(self.value_histogram.values())
+
+        @property
+        def num_distinct_values(self):
+            return len(self.value_histogram)
+
+        @property
+        def num_distinct_patterns(self):
+            return len(self.pattern_histogram)
+
+        @property
+        def values_hash(self):
+            return _histogram_hash(self.value_histogram)
 
     def __init__(self, header):
         self.header_ = header
@@ -75,17 +100,59 @@ def populate_columnar_table(fileobj, sep='|', header=None):
     return result
 
 
-def profile(table, limit=100):
+def profile_json(table, limit=1000):
+    result = []
+    for col in table.get_header():
+        profile = table.profile_column(col)
+
+        value_histo = []
+        l = 0
+        for i in sorted(profile.value_histogram.items(), key=operator.itemgetter(1), reverse=True):
+            value_histo.append({
+                "value": i[0],
+                "count": i[1],
+            })
+            l += 1
+            if l == limit:
+                break
+
+        pattern_histo = []
+        for i in sorted(profile.pattern_histogram.items(), key=operator.itemgetter(1), reverse=True):
+            pattern_histo.append({
+                "pattern": i[0],
+                "count": i[1][0],
+                "exemplar": i[1][1],
+            })
+
+        result.append({
+            "column": col,
+            "column_length": profile.num_values,
+            "value_length_min": profile.minimum_length,
+            "value_length_min_exemplar": profile.minimum_length_exemplar,
+            "value_length_max": profile.maximum_length,
+            "value_length_max_exemplar": profile.maximum_length_exemplar,
+            "distinct_value_count": profile.num_distinct_values,
+            "distinct_pattern_count": profile.num_distinct_patterns,
+            "values_hash": profile.values_hash,
+            "distinct_values_limit": limit,
+            "distinct_values": value_histo,
+            "patterns": pattern_histo,
+        })
+    print(json.dumps(result))
+
+
+def profile_human_readable(table, limit=100):
     for col in table.get_header():
         profile = table.profile_column(col)
         print('*' * 79)
         try:
-            print("column name: {0:s}\nminimum length: {1:d} [{2:s}]\n" \
-                "maximum length: {3:d} [{4:s}]\n" \
-                "count: {5:d}, distinct values: {6:d}, distinct patterns: {7:d}".format(
+            print("column name: {0:s}\nminimum value length: {1:d} [{2:s}]\n" \
+                "maximum value length: {3:d} [{4:s}]\n" \
+                "count: {5:d}, distinct values: {6:d}, distinct patterns: {7:d}\n" \
+                "value hash: {8:s}".format(
                 col, profile.minimum_length, profile.minimum_length_exemplar, profile.maximum_length,
-                profile.maximum_length_exemplar, sum(profile.value_histogram.values()), len(profile.value_histogram),
-                len(profile.pattern_histogram)))
+                profile.maximum_length_exemplar, profile.num_values, profile.num_distinct_values,
+                profile.num_distinct_patterns, profile.values_hash))
         except TypeError:
             print("column name: " + col + "\nEMPTY")
         print('=' * 79)
@@ -93,7 +160,6 @@ def profile(table, limit=100):
         p = profile.value_histogram
         for i in sorted(p.items(), key=operator.itemgetter(1), reverse=True):
             sys.stdout.write('\'' + i[0] + '\': ' + str(i[1]) + ', ')
-            #            sys.stdout.write('\'' + i[0] + '\', ')
             l += 1
             if l == limit:
                 sys.stdout.write('...')
@@ -104,7 +170,6 @@ def profile(table, limit=100):
         p = profile.pattern_histogram
         for i in sorted(p.items(), key=operator.itemgetter(1), reverse=True):
             sys.stdout.write('\'' + i[0] + '\': ' + str(i[1][0]) + ' [' + i[1][1] + '], ')
-            #            sys.stdout.write('\'' + i[0] + '\', ')
             l += 1
             if l == limit:
                 sys.stdout.write('...')
@@ -119,4 +184,7 @@ if len(sys.argv) > 1:
         table = populate_columnar_table(f, sep)
 else:
     table = populate_columnar_table(sys.stdin, sep)
-profile(table)
+
+# TODO: Argument parsing to select desired output format
+profile_json(table)  # emit profile in JSON
+# profile_human_readable(table)  # emit profile in a more "human readable" format
